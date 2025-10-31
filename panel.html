@@ -5,112 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>FelipeRevolution - Panel</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    /* Tema oscuro neón (rojo / cyan) */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
     :root{
-      --bg:#070707;
-      --card:#0f0f10;
+      --bg:#040406;
+      --card:#0f1113;
       --neon-pink:#ff00cc;
       --neon-cyan:#00e6ff;
       --muted:#9aa3ad;
+      --accent:#ffd9f6;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:'Poppins',sans-serif;
-      background:linear-gradient(180deg,#050505 0%, #0b0b10 100%);
-      color:#e9f0f6;
-      min-height:100vh;
-    }
+    *{ box-sizing:border-box; font-family:'Poppins',sans-serif; }
+    body{ margin:0; background:linear-gradient(180deg,#030304,#06060a); color:#eaf6ff; min-height:100vh; }
     header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding:18px 26px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:16px 20px; background:rgba(4,4,6,0.4); position:sticky; top:0; z-index:40;
       border-bottom:1px solid rgba(255,255,255,0.03);
       box-shadow:0 6px 30px rgba(0,0,0,0.6);
-      position:sticky; top:0; z-index:50;
-      background:linear-gradient(0deg, rgba(7,7,7,0.6), rgba(7,7,7,0.4));
     }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-    }
+    .brand{ display:flex; align-items:center; gap:12px; }
     .logo{
-      width:46px; height:46px; border-radius:10px;
-      background:linear-gradient(135deg,var(--neon-pink),var(--neon-cyan));
-      display:flex; align-items:center; justify-content:center;
-      font-weight:800; color:#fff; box-shadow:0 6px 30px rgba(0,0,0,0.6);
+      width:48px; height:48px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+      font-weight:800; color:#071018; background:linear-gradient(135deg,var(--neon-pink),var(--neon-cyan));
+      box-shadow:0 8px 30px rgba(0,0,0,0.6);
     }
-    h1{ margin:0; font-size:1.1rem; letter-spacing:1px;}
-    .user-box{
-      display:flex; gap:12px; align-items:center;
-    }
+    h1{ margin:0; font-size:1.05rem; }
+    .user-info{ display:flex; align-items:center; gap:12px; }
     .chip{
-      background:linear-gradient(90deg, rgba(255,0,204,0.08), rgba(0,230,255,0.06));
-      padding:8px 12px; border-radius:12px; font-weight:600;
-      display:flex; gap:12px; align-items:center;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    main{display:grid; grid-template-columns: 320px 1fr 360px; gap:20px; padding:22px;}
-    /* left column */
-    .panel{
-      background:var(--card); border-radius:14px; padding:16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .panel h3{margin:0 0 10px 0; color:var(--neon-cyan)}
-    .panel .small{ color:var(--muted); font-size:0.9rem; margin-bottom:12px}
-    .balance{ font-size:1.4rem; font-weight:700; color:var(--neon-pink)}
-    .btn{
-      background:linear-gradient(90deg,var(--neon-pink),var(--neon-cyan));
-      color:#071018; padding:10px;border-radius:10px;border:none; cursor:pointer;
-      font-weight:700; box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-    }
-    .input, .select, textarea { width:100%; padding:8px; margin:6px 0; border-radius:8px; border:none; background:#0b0b0b; color:#eaf4ff}
-    label{ font-size:0.85rem; color:var(--muted) }
-    .product-list{ display:grid; gap:12px; margin-top:12px; }
-    /* center area */
-    .products-grid{
-      display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:16px;
-    }
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,0.03);
-      display:flex; flex-direction:column; gap:8px;
-    }
-    .card img{ width:100%; height:130px; object-fit:cover; border-radius:8px }
-    .card .title{ font-weight:700; font-size:1rem }
-    .card .meta{ color:var(--muted); font-size:0.9rem }
-    .row{ display:flex; justify-content:space-between; align-items:center }
-    .stock{ background:rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; font-weight:600}
-    .buy-btn{ background:transparent; padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.05); cursor:pointer; font-weight:700}
-    .buy-btn:disabled{ opacity:0.4; cursor:not-allowed }
-    /* right column orders */
-    .orders{ display:flex; flex-direction:column; gap:12px }
-    .order{ background:#0d0d0d; padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.02) }
-    .tag{ font-size:0.8rem; padding:6px 8px; border-radius:8px; display:inline-block; background:rgba(255,255,255,0.02); color:var(--muted); margin-top:8px }
-    .small-muted{ color:var(--muted); font-size:0.85rem }
-    .flex{ display:flex; gap:8px; align-items:center }
-    /* neon popup */
-    .popup-wrap{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:200; }
-    .popup{
-      width:420px; max-width:92%; padding:24px; border-radius:12px;
-      background:linear-gradient(180deg, rgba(10,10,10,0.95), rgba(6,6,6,0.95));
-      border:1px solid rgba(255,0,204,0.25);
-      box-shadow: 0 12px 50px rgba(0,0,0,0.8);
-      text-align:center; color:#fff;
-    }
-    .popup h2{ margin:0 0 8px 0; color:var(--neon-cyan) }
-    .popup p{ color:var(--muted); margin:8px 0; }
-    .neon-code{ margin-top:12px; padding:12px; border-radius:10px; font-weight:800; letter-spacing:2px;
       background:linear-gradient(90deg, rgba(255,0,204,0.06), rgba(0,230,255,0.06));
-      color:var(--neon-pink); }
-    .close-x{ background:transparent; border:1px solid rgba(255,255,255,0.04); padding:8px 10px; border-radius:10px; cursor:pointer; font-weight:700}
-    /* small screens */
-    @media (max-width:1000px){
-      main{ grid-template-columns: 1fr; padding:12px; }
-      .orders{ order:3 }
+      padding:8px 12px; border-radius:12px; color:var(--muted); font-weight:700; border:1px solid rgba(255,255,255,0.02);
     }
+    .btn{ background:linear-gradient(90deg,var(--neon-pink),var(--neon-cyan)); color:#071018; border:none; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:800; }
+    main{ display:grid; grid-template-columns:320px 1fr 380px; gap:18px; padding:18px; }
+    .panel{ background:var(--card); border-radius:12px; padding:14px; border:1px solid rgba(255,255,255,0.02); box-shadow:0 12px 40px rgba(0,0,0,0.6); }
+    .panel h3{ margin:0 0 8px 0; color:var(--neon-cyan) }
+    label{ font-size:0.86rem; color:var(--muted); display:block; margin-top:8px; }
+    input, textarea, select { width:100%; padding:8px; margin-top:6px; border-radius:8px; background:#0b0b0c; border:none; color:#eaf4ff; }
+    .products-grid{ display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
+    .card{ padding:10px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); display:flex; flex-direction:column; gap:8px; }
+    .card img{ width:100%; height:130px; object-fit:cover; border-radius:8px; background:#0a0a0a; }
+    .row{ display:flex; justify-content:space-between; align-items:center; gap:8px; }
+    .stock{ background:rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; font-weight:700; }
+    .small{ color:var(--muted); font-size:0.9rem; }
+    .orders{ display:flex; flex-direction:column; gap:10px; max-height:68vh; overflow:auto; padding-right:6px; }
+    .order{ background:#0c0c0d; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.02); }
+    .neon-code{ font-weight:800; letter-spacing:1px; padding:8px; border-radius:8px; background:linear-gradient(90deg, rgba(255,0,204,0.04), rgba(0,230,255,0.04)); color:var(--neon-pink); }
+    .popup-wrap{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); z-index:120; }
+    .popup{ width:480px; max-width:94%; padding:20px; border-radius:12px; background:linear-gradient(180deg,#060607,#0b0b0c); border:1px solid rgba(255,0,204,0.16); text-align:center; }
+    .tabs{ display:flex; gap:8px; margin-bottom:10px; }
+    .tab{ padding:8px 10px; border-radius:8px; cursor:pointer; background:rgba(255,255,255,0.02); font-weight:700; color:var(--muted); }
+    .tab.active{ background:linear-gradient(90deg,var(--neon-pink),var(--neon-cyan)); color:#071018; }
+    .small-btn{ padding:6px 8px; border-radius:8px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.02); cursor:pointer; font-weight:700; color:var(--muted); }
+    .muted{ color:var(--muted); font-size:0.9rem; }
+    .table{ width:100%; border-collapse:collapse; }
+    .table td,.table th{ padding:8px; border-bottom:1px solid rgba(255,255,255,0.02); }
+    @media (max-width:1000px){ main{ grid-template-columns:1fr; padding:12px } .orders{ max-height:unset } }
   </style>
 </head>
 <body>
@@ -119,340 +68,306 @@
       <div class="logo">FR</div>
       <div>
         <h1>Felipe<span style="color:var(--neon-cyan)">Revolution</span></h1>
-        <div style="font-size:0.85rem; color:var(--muted)">Panel local · Simulador</div>
+        <div class="muted">Panel local — Admin</div>
       </div>
     </div>
 
-    <div class="user-box">
-      <div id="userInfo" class="chip">Cargando...</div>
-      <button id="logoutBtn" class="btn" title="Salir">Salir</button>
+    <div class="user-info">
+      <div id="userChip" class="chip">Cargando...</div>
+      <button id="logoutBtn" class="btn">Salir</button>
     </div>
   </header>
 
   <main>
-    <!-- LEFT: Owner controls (if owner) OR mini-profile -->
-    <section class="panel" id="leftPanel">
+    <!-- LEFT: Owner controls & User management -->
+    <aside class="panel" style="height:calc(100vh - 110px); overflow:auto;">
       <h3>Cuenta</h3>
       <div class="small">Información del usuario activo</div>
-      <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px">
-        <div><label>Usuario</label><div id="u_name" class="small-muted"></div></div>
-        <div><label>Rol</label><div id="u_role" class="small-muted"></div></div>
-        <div><label>Saldo</label><div id="u_saldo" class="balance"></div></div>
+      <div style="margin-top:8px">
+        <label>Usuario</label>
+        <div id="u_name" class="muted"></div>
+        <label>Rol</label>
+        <div id="u_role" class="muted"></div>
+        <label>Saldo</label>
+        <div id="u_saldo" style="font-weight:800; font-size:1.2rem; color:var(--neon-pink)"></div>
       </div>
 
       <hr style="margin:12px 0; border-color:rgba(255,255,255,0.02)">
 
-      <div id="ownerControls" style="display:none">
-        <h3>Agregar Producto</h3>
-        <div class="small">Crea productos que aparezcan en la tienda</div>
-        <label>Nombre</label>
-        <input id="p_name" class="input" placeholder="Nombre del producto">
-        <label>Precio (número)</label>
-        <input id="p_price" type="number" class="input" placeholder="Precio">
-        <label>Stock (número)</label>
-        <input id="p_stock" type="number" class="input" placeholder="Stock">
-        <label>Imagen (archivo o URL)</label>
-        <input id="p_image_file" type="file" accept="image/*" class="input">
-        <input id="p_image_url" class="input" placeholder="O pega una URL de imagen (opcional)">
-        <button id="addProductBtn" class="btn">Agregar producto</button>
-
-        <hr style="margin:12px 0; border-color:rgba(255,255,255,0.02)">
-
-        <h3>Gestión rápida</h3>
-        <div class="small">Acciones del Owner</div>
-        <label>Añadir saldo a usuario</label>
-        <select id="userSelect" class="select"></select>
-        <input id="userAddAmount" class="input" type="number" placeholder="Cantidad a añadir">
-        <button id="addSaldoBtn" class="btn">Agregar saldo</button>
-
-        <div style="margin-top:12px">
-          <button id="exportBtn" class="btn">Exportar datos (console)</button>
+      <div style="margin-bottom:10px">
+        <div class="tabs" id="leftTabs">
+          <div class="tab active" data-tab="products">Productos</div>
+          <div class="tab" data-tab="users">Usuarios</div>
+          <div class="tab" data-tab="licenses">Licencias</div>
         </div>
-      </div>
-    </section>
 
-    <!-- CENTER: Products -->
+        <!-- PRODUCTS quick add -->
+        <div id="tab-products">
+          <h3 class="muted">Agregar producto</h3>
+          <label>Nombre</label>
+          <input id="p_name" placeholder="Ej: Diamantes 500">
+          <label>Precio</label>
+          <input id="p_price" type="number" placeholder="Precio en moneda interna">
+          <label>Stock</label>
+          <input id="p_stock" type="number" placeholder="Cantidad en stock">
+          <label>Imagen (ruta local dentro de /img/)</label>
+          <input id="p_image_local" placeholder="Ej: img/diamantes.png">
+          <label>O URL imagen (opcional)</label>
+          <input id="p_image_url" placeholder="https://... (opcional)">
+          <div style="margin-top:8px"><button id="addProductBtn" class="btn">Agregar producto</button></div>
+        </div>
+
+        <!-- USERS management -->
+        <div id="tab-users" style="display:none; margin-top:8px;">
+          <h3 class="muted">Gestionar usuarios</h3>
+          <label>Crear usuario</label>
+          <input id="nu_username" placeholder="Nombre de usuario">
+          <input id="nu_password" placeholder="Contraseña">
+          <select id="nu_role"><option value="cliente">cliente</option><option value="owner">owner</option></select>
+          <input id="nu_saldo" type="number" placeholder="Saldo inicial">
+          <div style="margin-top:8px"><button id="createUserBtn" class="btn">Crear usuario</button></div>
+
+          <hr style="margin:10px 0; border-color:rgba(255,255,255,0.02)">
+
+          <h4 class="muted">Usuarios existentes</h4>
+          <div id="usersTableWrap" style="max-height:260px; overflow:auto; margin-top:8px;"></div>
+        </div>
+
+        <!-- LICENSES management -->
+        <div id="tab-licenses" style="display:none; margin-top:8px;">
+          <h3 class="muted">Licencias</h3>
+          <div class="small">Sube licencias en lote (CSV) o agrégalas manualmente</div>
+          <label>Seleccionar producto (para vincular licencias)</label>
+          <select id="licenseProductSelect"></select>
+          <label>Subir CSV (productId,code,duration o una licencia por línea)</label>
+          <input id="licenseCsvFile" type="file" accept=".csv,.txt">
+          <div style="margin-top:6px"><button id="importLicBtn" class="btn">Importar CSV</button></div>
+          <hr style="margin:10px 0; border-color:rgba(255,255,255,0.02)">
+          <label>Agregar licencia manual</label>
+          <input id="manualLicense" placeholder="Código de licencia real">
+          <input id="manualDuration" placeholder="Duración (días) - opcional">
+          <div style="margin-top:6px"><button id="addLicenseBtn" class="btn">Agregar licencia</button></div>
+          <div style="margin-top:10px"><button id="exportLicBtn" class="small-btn">Exportar licencias (CSV)</button></div>
+          <div id="licensesList" style="margin-top:10px; max-height:200px; overflow:auto;"></div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- CENTER: Products display -->
     <section>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
-        <div>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px;">
+        <div style="flex:1">
           <label>Buscar</label>
-          <input id="searchInput" class="input" placeholder="Buscar productos...">
+          <input id="searchInput" placeholder="Buscar productos...">
         </div>
-        <div>
-          <label>Filtro</label>
-          <select id="filterStock" class="select">
-            <option value="all">Todos</option>
-            <option value="in">Con stock</option>
-            <option value="out">Agotados</option>
-          </select>
+        <div style="width:180px">
+          <label>Filtro stock</label>
+          <select id="filterStock"><option value="all">Todos</option><option value="in">Con stock</option><option value="out">Agotados</option></select>
         </div>
       </div>
 
-      <div class="products-grid" id="productsGrid">
-        <!-- tarjetas de productos -->
-      </div>
+      <div class="products-grid" id="productsGrid"></div>
     </section>
 
-    <!-- RIGHT: Orders / compras -->
-    <aside class="panel" id="rightPanel">
-      <h3>Pedidos / Compras</h3>
+    <!-- RIGHT: Orders / Export -->
+    <aside class="panel" style="height:calc(100vh - 110px); overflow:auto;">
+      <h3>Pedidos</h3>
       <div class="small">Pedidos recientes y pendientes</div>
-
-      <div class="orders" id="ordersList" style="margin-top:12px">
-        <!-- pedidos -->
-      </div>
+      <div class="orders" id="ordersList"></div>
 
       <hr style="margin:12px 0; border-color:rgba(255,255,255,0.02)">
 
-      <h3>Compras del usuario</h3>
-      <div id="myPurchases" class="small-muted" style="margin-top:8px"></div>
+      <h3>Export / Debug</h3>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <button id="exportAllBtn" class="btn">Exportar todo (JSON)</button>
+        <button id="exportOrdersBtn" class="btn">Exportar pedidos (CSV)</button>
+        <button id="downloadDataBtn" class="small-btn">Descargar datos (JSON)</button>
+        <button id="clearDataBtn" class="small-btn" title="Borra todo (USERS, PRODUCTS, ORDERS, LICENSES)">Borrar datos (limpiar)</button>
+      </div>
     </aside>
   </main>
 
   <!-- POPUP -->
   <div class="popup-wrap" id="popupWrap">
     <div class="popup" id="popup">
-      <h2>✅ Compra realizada</h2>
-      <p id="popupMsg">Tu pedido fue creado correctamente. Espera a que el Owner asigne la licencia.</p>
-      <div class="neon-code" id="popupOrder">Pedido: #--</div>
-      <div style="margin-top:14px">
-        <button id="popupClose" class="close-x">Cerrar</button>
-      </div>
+      <h2 id="popupTitle">✅ Acción</h2>
+      <p id="popupMessage">Mensaje</p>
+      <div id="popupExtra" style="margin-top:10px"></div>
+      <div style="margin-top:12px"><button id="popupClose" class="btn">Cerrar</button></div>
     </div>
   </div>
 
 <script>
-/* =========================
-   FelipeRevolution - panel
-   All-in-one panel.html
-   ========================= */
-
-/* --- Storage keys --- */
+/* ===== Keys for localStorage ===== */
 const USERS_KEY = 'fr_users';
 const PRODUCTS_KEY = 'fr_products';
 const ORDERS_KEY = 'fr_orders';
+const LICENSES_KEY = 'fr_licenses';
 
-/* --- Helper: load active user from index.html login --- */
+/* ===== Active user pulled from index.html login ===== */
 let activeUser = (() => {
-  try {
-    return JSON.parse(localStorage.getItem('activeUser'));
-  } catch(e){ return null; }
+  try { return JSON.parse(localStorage.getItem('activeUser')); } catch(e) { return null; }
 })();
-
-/* Redirect to login if no active user */
 if (!activeUser) {
   alert('No hay sesión activa. Serás enviado al login.');
   window.location.href = 'index.html';
 }
 
-/* --- Initialize default users if not present --- */
+/* ===== Ensure default data exists ===== */
 function ensureDefaults(){
-  const existing = JSON.parse(localStorage.getItem(USERS_KEY) || 'null');
-  if (!existing) {
+  if (!localStorage.getItem(USERS_KEY)) {
     const defaults = [
       { username: "FelipeRevolution", password: "2013AF", role: "owner", saldo: 1000, purchases: [] },
       { username: "VicazzOficial", password: "Vicazz", role: "cliente", saldo: 1, purchases: [] }
     ];
     localStorage.setItem(USERS_KEY, JSON.stringify(defaults));
   }
-  // products
-  const products = JSON.parse(localStorage.getItem(PRODUCTS_KEY) || 'null');
-  if (!products) {
-    // start empty; Owner will add via panel
-    localStorage.setItem(PRODUCTS_KEY, JSON.stringify([]));
-  }
-  const orders = JSON.parse(localStorage.getItem(ORDERS_KEY) || 'null');
-  if (!orders) localStorage.setItem(ORDERS_KEY, JSON.stringify([]));
+  if (!localStorage.getItem(PRODUCTS_KEY)) localStorage.setItem(PRODUCTS_KEY, JSON.stringify([]));
+  if (!localStorage.getItem(ORDERS_KEY)) localStorage.setItem(ORDERS_KEY, JSON.stringify([]));
+  if (!localStorage.getItem(LICENSES_KEY)) localStorage.setItem(LICENSES_KEY, JSON.stringify([]));
 }
 ensureDefaults();
 
-/* --- Utility functions --- */
-function saveUsers(u){ localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
-function saveProducts(p){ localStorage.setItem(PRODUCTS_KEY, JSON.stringify(p)); }
-function saveOrders(o){ localStorage.setItem(ORDERS_KEY, JSON.stringify(o)); }
-
+/* ===== Helpers ===== */
+const $ = id => document.getElementById(id);
 function getUsers(){ return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); }
 function getProducts(){ return JSON.parse(localStorage.getItem(PRODUCTS_KEY) || '[]'); }
 function getOrders(){ return JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]'); }
+function getLicenses(){ return JSON.parse(localStorage.getItem(LICENSES_KEY) || '[]'); }
+function saveUsers(u){ localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+function saveProducts(p){ localStorage.setItem(PRODUCTS_KEY, JSON.stringify(p)); }
+function saveOrders(o){ localStorage.setItem(ORDERS_KEY, JSON.stringify(o)); }
+function saveLicenses(l){ localStorage.setItem(LICENSES_KEY, JSON.stringify(l)); }
+function findUser(username){ return getUsers().find(x => x.username === username); }
+function updateUserObject(u){ const all = getUsers().map(x => x.username === u.username ? u : x); saveUsers(all); }
 
-function findUser(username){
-  return getUsers().find(u => u.username === username);
-}
+/* ===== DOM refs ===== */
+const u_name = $('u_name'), u_role = $('u_role'), u_saldo = $('u_saldo'), userChip = $('userChip'), logoutBtn = $('logoutBtn');
+const leftTabs = document.getElementById('leftTabs');
+const addProductBtn = $('addProductBtn'), p_name = $('p_name'), p_price = $('p_price'), p_stock = $('p_stock'), p_image_local = $('p_image_local'), p_image_url = $('p_image_url');
+const productsGrid = $('productsGrid'), searchInput = $('searchInput'), filterStock = $('filterStock');
+const ordersList = $('ordersList');
+const createUserBtn = $('createUserBtn'), nu_username = $('nu_username'), nu_password = $('nu_password'), nu_role = $('nu_role'), nu_saldo = $('nu_saldo'), usersTableWrap = $('usersTableWrap');
+const licenseProductSelect = $('licenseProductSelect'), licenseCsvFile = $('licenseCsvFile'), importLicBtn = $('importLicBtn'), manualLicense = $('manualLicense'), manualDuration = $('manualDuration'), addLicenseBtn = $('addLicenseBtn'), licensesList = $('licensesList'), exportLicBtn = $('exportLicBtn');
+const exportAllBtn = $('exportAllBtn'), exportOrdersBtn = $('exportOrdersBtn'), downloadDataBtn = $('downloadDataBtn'), clearDataBtn = $('clearDataBtn');
+const popupWrap = $('popupWrap'), popup = $('popup'), popupTitle = $('popupTitle'), popupMessage = $('popupMessage'), popupExtra = $('popupExtra'), popupClose = $('popupClose');
 
-function updateUser(updated){
-  const users = getUsers().map(u => u.username === updated.username ? updated : u);
-  saveUsers(users);
-}
-
-/* --- DOM refs --- */
-const u_name = document.getElementById('u_name');
-const u_role = document.getElementById('u_role');
-const u_saldo = document.getElementById('u_saldo');
-const userInfo = document.getElementById('userInfo');
-const logoutBtn = document.getElementById('logoutBtn');
-
-const ownerControls = document.getElementById('ownerControls');
-const addProductBtn = document.getElementById('addProductBtn');
-const p_name = document.getElementById('p_name');
-const p_price = document.getElementById('p_price');
-const p_stock = document.getElementById('p_stock');
-const p_image_file = document.getElementById('p_image_file');
-const p_image_url = document.getElementById('p_image_url');
-
-const productsGrid = document.getElementById('productsGrid');
-
-const ordersList = document.getElementById('ordersList');
-const myPurchases = document.getElementById('myPurchases');
-
-const userSelect = document.getElementById('userSelect');
-const userAddAmount = document.getElementById('userAddAmount');
-const addSaldoBtn = document.getElementById('addSaldoBtn');
-const exportBtn = document.getElementById('exportBtn');
-
-const popupWrap = document.getElementById('popupWrap');
-const popupOrder = document.getElementById('popupOrder');
-const popupMsg = document.getElementById('popupMsg');
-const popupClose = document.getElementById('popupClose');
-
-const searchInput = document.getElementById('searchInput');
-const filterStock = document.getElementById('filterStock');
-
-/* --- Render UI --- */
+/* ===== Render header & account info ===== */
 function renderHeader(){
-  const short = activeUser.username;
-  userInfo.innerHTML = \`\${short} · <span style="color:var(--neon-cyan)">\${activeUser.role}</span>\`;
+  userChip.textContent = activeUser.username + ' · ' + activeUser.role;
   u_name.textContent = activeUser.username;
   u_role.textContent = activeUser.role;
   u_saldo.textContent = '$' + (activeUser.saldo ?? 0);
-  // show owner controls if owner
-  if (activeUser.role === 'owner') ownerControls.style.display = 'block';
-  else ownerControls.style.display = 'none';
+  // hide owner tabs if not owner
+  if (activeUser.role !== 'owner') {
+    document.querySelectorAll('.tab').forEach(t => t.style.display = 'none');
+  }
+}
+renderHeader();
+
+/* ===== Tabs handling ===== */
+leftTabs.addEventListener('click', (e) => {
+  const t = e.target.closest('.tab'); if (!t) return;
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  const sel = t.dataset.tab;
+  $('tab-products').style.display = (sel==='products' ? 'block' : 'none');
+  $('tab-users').style.display = (sel==='users' ? 'block' : 'none');
+  $('tab-licenses').style.display = (sel==='licenses' ? 'block' : 'none');
+});
+
+/* ===== Product rendering ===== */
+function placeholder(){
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#0b0b0b"/><text x="50%" y="50%" fill="#777" font-size="24" font-family="Arial" text-anchor="middle">Sin imagen</text></svg>');
 }
 
-/* Build user select for owner quick-saldo */
-function populateUserSelect(){
-  userSelect.innerHTML = '';
-  getUsers().forEach(u => {
-    const opt = document.createElement('option');
-    opt.value = u.username;
-    opt.textContent = u.username + ' · ' + u.role + ' · $' + u.saldo;
-    userSelect.appendChild(opt);
-  });
-}
-
-/* Products render */
 function renderProducts(){
-  const q = (searchInput.value || '').toLowerCase();
+  const q = (searchInput.value||'').toLowerCase();
   const filter = filterStock.value;
-  const products = getProducts().filter(p => {
+  const list = getProducts().filter(p => {
     if (q && !p.name.toLowerCase().includes(q)) return false;
     if (filter === 'in' && p.stock <= 0) return false;
     if (filter === 'out' && p.stock > 0) return false;
     return true;
   });
-
   productsGrid.innerHTML = '';
-  products.forEach(p => {
+  list.forEach(p => {
     const card = document.createElement('div'); card.className='card';
-    const img = document.createElement('img'); img.src = p.image || placeholderData();
-    const title = document.createElement('div'); title.className='title'; title.textContent = p.name;
-    const desc = document.createElement('div'); desc.className='meta'; desc.textContent = 'Precio: $' + p.price;
+    const img = document.createElement('img'); img.src = p.image || placeholder();
+    const title = document.createElement('div'); title.style.fontWeight='800'; title.textContent = p.name;
+    const price = document.createElement('div'); price.className='muted'; price.textContent = 'Precio: $' + p.price;
     const row = document.createElement('div'); row.className='row';
     const stock = document.createElement('div'); stock.className='stock'; stock.textContent = 'Stock: ' + p.stock;
-    const btn = document.createElement('button'); btn.className='buy-btn'; btn.textContent='Comprar';
-    if (p.stock <= 0) { btn.disabled = true; btn.textContent='Agotado'; }
+    const buyBtn = document.createElement('button'); buyBtn.className='small-btn'; buyBtn.textContent = 'Comprar';
+    if (p.stock <= 0) { buyBtn.disabled = true; buyBtn.textContent = 'Agotado'; }
+    buyBtn.addEventListener('click', () => buyProduct(p.id));
+    row.appendChild(stock); row.appendChild(buyBtn);
+    card.appendChild(img); card.appendChild(title); card.appendChild(price); card.appendChild(row);
 
-    btn.addEventListener('click', () => buyProduct(p.id));
-    row.appendChild(stock); row.appendChild(btn);
-
-    // if owner show edit/delete quick
     if (activeUser.role === 'owner') {
-      const ownerRow = document.createElement('div'); ownerRow.style.display='flex'; ownerRow.style.justifyContent='space-between';
-      const actions = document.createElement('div');
-      const editBtn = document.createElement('button'); editBtn.className='buy-btn'; editBtn.style.marginRight='8px'; editBtn.textContent='Editar';
-      const delBtn = document.createElement('button'); delBtn.className='buy-btn'; delBtn.textContent='Eliminar';
-      editBtn.addEventListener('click', () => openEditProduct(p.id));
-      delBtn.addEventListener('click', () => deleteProduct(p.id));
-      actions.appendChild(editBtn); actions.appendChild(delBtn);
-      card.appendChild(img); card.appendChild(title); card.appendChild(desc); card.appendChild(row); card.appendChild(actions);
-    } else {
-      card.appendChild(img); card.appendChild(title); card.appendChild(desc); card.appendChild(row);
+      const actions = document.createElement('div'); actions.style.display='flex'; actions.style.gap='8px';
+      const edit = document.createElement('button'); edit.className='small-btn'; edit.textContent='Editar';
+      const del = document.createElement('button'); del.className='small-btn'; del.textContent='Eliminar';
+      edit.addEventListener('click', ()=> editProductPrompt(p.id));
+      del.addEventListener('click', ()=> { if(confirm('Eliminar producto?')) { deleteProduct(p.id); } });
+      actions.appendChild(edit); actions.appendChild(del);
+      card.appendChild(actions);
     }
 
     productsGrid.appendChild(card);
   });
 }
 
-/* Orders render */
-function renderOrders(){
-  const orders = getOrders().slice().sort((a,b)=>b.createdAt - a.createdAt);
-  ordersList.innerHTML = '';
-  orders.forEach(o => {
-    const el = document.createElement('div'); el.className='order';
-    const header = document.createElement('div'); header.className='row';
-    const left = document.createElement('div');
-    left.innerHTML = '<div style="font-weight:800">'+o.productName+'</div><div class="small-muted">#'+o.orderId+'</div>';
-    const status = document.createElement('div'); status.innerHTML = '<div class="tag">'+o.status.toUpperCase()+'</div>';
-    header.appendChild(left); header.appendChild(status);
-    el.appendChild(header);
-    el.appendChild(document.createElement('hr'));
-    const details = document.createElement('div');
-    details.innerHTML = '<div class="small-muted">Comprador: '+o.username+'</div>' +
-                        '<div class="small-muted">Precio: $'+o.price+' · Cantidad: 1</div>' +
-                        '<div class="small-muted">Fecha: '+ new Date(o.createdAt).toLocaleString() +'</div>';
-    el.appendChild(details);
+/* ===== Product CRUD ===== */
+addProductBtn.addEventListener('click', async () => {
+  const name = p_name.value.trim(), price = Number(p_price.value), stock = Number(p_stock.value);
+  if (!name || isNaN(price) || isNaN(stock)) return alert('Completa nombre, precio y stock.');
+  let img = '';
+  const localPath = p_image_local.value.trim();
+  const url = p_image_url.value.trim();
+  if (localPath) img = localPath;
+  else if (url) img = url;
+  else img = placeholder();
+  const id = 'P'+Date.now().toString().slice(-6)+Math.random().toString(36).slice(2,5).toUpperCase();
+  const prod = { id, name, price, stock, image: img };
+  const arr = getProducts(); arr.push(prod); saveProducts(arr);
+  p_name.value=''; p_price.value=''; p_stock.value=''; p_image_local.value=''; p_image_url.value='';
+  refreshAll();
+});
 
-    // if owner and pending -> show assign license form
-    if (activeUser.role === 'owner' && o.status === 'pending') {
-      const form = document.createElement('div'); form.style.marginTop='10px';
-      const label = document.createElement('label'); label.textContent='Asignar licencia (real):';
-      const inp = document.createElement('input'); inp.className='input'; inp.placeholder='Código de licencia real';
-      const dur = document.createElement('input'); dur.className='input'; dur.placeholder='Duración (días) - opcional';
-      const btn = document.createElement('button'); btn.className='btn'; btn.textContent='Asignar licencia';
-      btn.addEventListener('click', () => {
-        const code = inp.value.trim();
-        const days = dur.value.trim();
-        if (!code) return alert('Ingresa la licencia real antes de asignar.');
-        assignLicenseToOrder(o.orderId, code, days || null);
-      });
-      form.appendChild(label); form.appendChild(inp); form.appendChild(dur); form.appendChild(btn);
-      el.appendChild(form);
-    } else if (o.status === 'completed') {
-      el.appendChild(document.createElement('hr'));
-      const lic = document.createElement('div'); lic.innerHTML = '<div style="font-weight:800; color:var(--neon-cyan)">Licencia:</div>' +
-        '<div class="neon-code" style="color:var(--neon-cyan); background:transparent; border:none; padding:6px 0; letter-spacing:1px">' +
-        (o.license || '--') + (o.duration ? ' · ' + o.duration + ' días' : '') + '</div>';
-      el.appendChild(lic);
-    }
-
-    ordersList.appendChild(el);
-  });
+function editProductPrompt(id){
+  const arr = getProducts(); const p = arr.find(x=>x.id===id); if(!p) return alert('No encontrado');
+  const newName = prompt('Nombre:', p.name) || p.name;
+  const newPrice = Number(prompt('Precio:', p.price) || p.price);
+  const newStock = Number(prompt('Stock:', p.stock) || p.stock);
+  p.name = newName; p.price = newPrice; p.stock = newStock;
+  saveProducts(arr); refreshAll();
+}
+function deleteProduct(id){
+  const arr = getProducts().filter(x=>x.id!==id); saveProducts(arr); refreshAll();
 }
 
-/* My purchases (right panel) */
-function renderMyPurchases(){
-  const me = findUser(activeUser.username);
-  myPurchases.innerHTML = '';
-  if (!me || !me.purchases || me.purchases.length === 0) {
-    myPurchases.textContent = 'No tienes compras todavía.';
-    return;
-  }
-  me.purchases.slice().reverse().forEach(p => {
-    const d = document.createElement('div'); d.style.marginBottom='10px';
-    d.innerHTML = '<div style="font-weight:700">'+p.productName+'</div>' +
-                  '<div class="small-muted">Pedido #'+p.orderId+' · Estado: '+p.status+'</div>' +
-                  (p.status === 'completed' ? '<div class="neon-code">'+p.license+' · '+(p.duration ? p.duration+' días' : '')+'</div>' : '');
-    myPurchases.appendChild(d);
-  });
-}
-
-/* Placeholder data url if missing */
-function placeholderData(){
-  return 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#111"/><text x="50%" y="50%" fill="#888" font-size="24" font-family="Arial" text-anchor="middle">Sin imagen</text></svg>');
-}
-
-/* --- Actions --- */
+/* ===== Orders & Purchase flow ===== */
 function buyProduct(productId){
-  const products = getProducts();
-  const prod = products.find(p => p.id === productId);
- 
+  const products = getProducts(); const prod = products.find(p=>p.id===productId); if(!prod) return alert('Producto no encontrado');
+  if (prod.stock <= 0) return alert('Sin stock');
+  const users = getUsers(); const user = users.find(u=>u.username===activeUser.username);
+  if (!user) return alert('Usuario no encontrado');
+  if ((user.saldo||0) < prod.price) return alert('Saldo insuficiente');
+
+  // subtract balance + reduce stock
+  user.saldo = Number(user.saldo) - Number(prod.price);
+  prod.stock = Number(prod.stock) - 1;
+
+  // create order
+  const orderId = generateOrderId();
+  const order = { orderId, productId: prod.id, productName: prod.name, username: user.username, price: prod.price, status:'pending', license:null, duration:null, createdAt: Date.now() };
+  const orders = getOrders(); orders.push(order); saveOrders(orders);
+
+  // add to user's purchases
+  const updatedUsers = getUsers().map(u => { if(u.username===user.username){ u.purchases = u.purchases||[]; u.purchases.push(order); } return u; });
+  saveUsers(updatedUsers);
+
+  // save products and update activeUser
+  saveProduc
