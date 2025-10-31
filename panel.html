@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FelipeRevolution - Panel</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    :root{
+      --bg:#070707;
+      --card:#0f0f10;
+      --neon-pink:#ff00cc;
+      --neon-cyan:#00e6ff;
+      --muted:#9aa3ad;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(180deg,#050505 0%, #0b0b10 100%);
+      color:#e9f0f6;
+      min-height:100vh;
+    }
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:18px 26px;
+      border-bottom:1px solid rgba(255,255,255,0.03);
+      box-shadow:0 6px 30px rgba(0,0,0,0.6);
+      position:sticky; top:0; z-index:50;
+      background:linear-gradient(0deg, rgba(7,7,7,0.6), rgba(7,7,7,0.4));
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+    }
+    .logo{
+      width:46px; height:46px; border-radius:10px;
+      background:linear-gradient(135deg,var(--neon-pink),var(--neon-cyan));
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800; color:#fff; box-shadow:0 6px 30px rgba(0,0,0,0.6);
+    }
+    h1{ margin:0; font-size:1.1rem; letter-spacing:1px;}
+    .user-box{
+      display:flex; gap:12px; align-items:center;
+    }
+    .chip{
+      background:linear-gradient(90deg, rgba(255,0,204,0.08), rgba(0,230,255,0.06));
+      padding:8px 12px; border-radius:12px; font-weight:600;
+      display:flex; gap:12px; align-items:center;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    main{display:grid; grid-template-columns: 320px 1fr 360px; gap:20px; padding:22px;}
+    /* left column */
+    .panel{
+      background:var(--card); border-radius:14px; padding:16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .panel h3{margin:0 0 10px 0; color:var(--neon-cyan)}
+    .panel .small{ color:var(--muted); font-size:0.9rem; margin-bottom:12px}
+    .balance{ font-size:1.4rem; font-weight:700; color:var(--neon-pink)}
+    .btn{
+      background:linear-gradient(90deg,var(--neon-pink),var(--neon-cyan));
+      color:#071018; padding:10px;border-radius:10px;border:none; cursor:pointer;
+      font-weight:700; box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    }
+    .input, .select, textarea { width:100%; padding:8px; margin:6px 0; border-radius:8px; border:none; background:#0b0b0b; color:#eaf4ff}
+    label{ font-size:0.85rem; color:var(--muted) }
+    .product-list{ display:grid; gap:12px; margin-top:12px; }
+    /* center area */
+    .products-grid{
+      display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:16px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,0.03);
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .card img{ width:100%; height:130px; object-fit:cover; border-radius:8px }
+    .card .title{ font-weight:700; font-size:1rem }
+    .card .meta{ color:var(--muted); font-size:0.9rem }
+    .row{ display:flex; justify-content:space-between; align-items:center }
+    .stock{ background:rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; font-weight:600}
+    .buy-btn{ background:transparent; padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.05); cursor:pointer; font-weight:700}
+    .buy-btn:disabled{ opacity:0.4; cursor:not-allowed }
+    /* right column orders */
+    .orders{ display:flex; flex-direction:column; gap:12px }
+    .order{ background:#0d0d0d; padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.02) }
+    .tag{ font-size:0.8rem; padding:6px 8px; border-radius:8px; display:inline-block; background:rgba(255,255,255,0.02); color:var(--muted); margin-top:8px }
+    .small-muted{ color:var(--muted); font-size:0.85rem }
+    .flex{ display:flex; gap:8px; align-items:center }
+    /* neon popup */
+    .popup-wrap{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:200; }
+    .popup{
+      width:420px; max-width:92%; padding:24px; border-radius:12px;
+      background:linear-gradient(180deg, rgba(10,10,10,0.95), rgba(6,6,6,0.95));
+      border:1px solid rgba(255,0,204,0.25);
+      box-shadow: 0 12px 50px rgba(0,0,0,0.8);
+      text-align:center; color:#fff;
+    }
+    .popup h2{ margin:0 0 8px 0; color:var(--neon-cyan) }
+    .popup p{ color:var(--muted); margin:8px 0; }
+    .neon-code{ margin-top:12px; padding:12px; border-radius:10px; font-weight:800; letter-spacing:2px;
+      background:linear-gradient(90deg, rgba(255,0,204,0.06), rgba(0,230,255,0.06));
+      color:var(--neon-pink); }
+    .close-x{ background:transparent; border:1px solid rgba(255,255,255,0.04); padding:8px 10px; border-radius:10px; cursor:pointer; font-weight:700}
+    /* small screens */
+    @media (max-width:1000px){
+      main{ grid-template-columns: 1fr; padding:12px; }
+      .orders{ order:3 }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">FR</div>
+      <div>
+        <h1>Felipe<span style="color:var(--neon-cyan)">Revolution</span></h1>
+        <div style="font-size:0.85rem; color:var(--muted)">Panel local · Simulador</div>
+      </div>
+    </div>
+
+    <div class="user-box">
+      <div id="userInfo" class="chip">Cargando...</div>
+      <button id="logoutBtn" class="btn" title="Salir">Salir</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- LEFT: Owner controls (if owner) OR mini-profile -->
+    <section class="panel" id="leftPanel">
+      <h3>Cuenta</h3>
+      <div class="small">Información del usuario activo</div>
+      <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px">
+        <div><label>Usuario</label><div id="u_name" class="small-muted"></div></div>
+        <div><label>Rol</label><div id="u_role" class="small-muted"></div></div>
+        <div><label>Saldo</label><div id="u_saldo" class="balance"></div></div>
+      </div>
+
+      <hr style="margin:12px 0; border-color:rgba(255,255,255,0.02)">
+
+      <div id="ownerControls" style="display:none">
+        <h3>Agregar Producto</h3>
+        <div class="small">Crea productos que aparezcan en la tienda</div>
+        <label>Nombre</label>
+        <input id="p_name" class="input" placeholder="Nombre del producto">
+        <label>Precio (número)</label>
+        <input id="p_price" type="number" class="input" placeholder="Precio">
+        <label>Stock (número)</label>
+        <input id="p_stock" type="number" class="input" placeholder="Stock">
+        <label>Imagen (archivo o URL)</label>
+        <input id="p_image_file" type="file" accept="image/*" class="input">
+        <input id="p_image_url" class="input" placeholder="O pega una URL de imagen (opcional)">
+        <button id="addProductBtn" class="btn">Agregar producto</button>
+
+        <hr style="margin:12px 0; border-color:rgba(255,255,255,0.02)">
+
+        <h3>Gestión rápida</h3>
+        <div class="small">Acciones del Owner</div>
+        <label>Añadir saldo a usuario</label>
+        <select id="userSelect" class="select"></select>
+        <input id="userAddAmount" class="input" type="number" placeholder="Cantidad a añadir">
+        <button id="addSaldoBtn" class="btn">Agregar saldo</button>
+
+        <div style="margin-top:12px">
+          <button id="exportBtn" class="btn">Exportar datos (console)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CENTER: Products -->
+    <section>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
+        <div>
+          <label>Buscar</label>
+          <input id="searchInput" class="input" placeholder="Buscar productos...">
+        </div>
+        <div>
+          <label>Filtro</label>
+          <select id="filterStock" class="select">
+            <option value="all">Todos</option>
+            <option value="in">Con stock</option>
+            <option value="out">Agotados</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="products-grid" id="productsGrid">
+        <!-- tarjetas de productos -->
+      </div>
+    </section>
+
+    <!-- RIGHT: Orders / compras -->
+    <aside class="panel" id="rightPanel">
+      <h3>Pedidos / Compras</h3>
+      <div class="small">Pedidos recientes y pendientes</div>
+
+      <div class="orders" id="ordersList" style="margin-top:12px">
+        <!-- pedidos -->
+      </div>
+
+      <hr style="margin:12px 0; border-color:rgba(255,255,255,0.02)">
+
+      <h3>Compras del usuario</h3>
+      <div id="myPurchases" class="small-muted" style="margin-top:8px"></div>
+    </aside>
+  </main>
+
+  <!-- POPUP -->
+  <div class="popup-wrap" id="popupWrap">
+    <div class="popup" id="popup">
+      <h2>✅ Compra realizada</h2>
+      <p id="popupMsg">Tu pedido fue creado correctamente. Espera a que el Owner asigne la licencia.</p>
+      <div class="neon-code" id="popupOrder">Pedido: #--</div>
+      <div style="margin-top:14px">
+        <button id="popupClose" class="close-x">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* =========================
+   FelipeRevolution - panel
+   All-in-one panel.html
+   ========================= */
+
+/* --- Storage keys --- */
+const USERS_KEY = 'fr_users';
+const PRODUCTS_KEY = 'fr_products';
+const ORDERS_KEY = 'fr_orders';
+
+/* --- Helper: load active user from index.html login --- */
+let activeUser = (() => {
+  try {
+    return JSON.parse(localStorage.getItem('activeUser'));
+  } catch(e){ return null; }
+})();
+
+/* Redirect to login if no active user */
+if (!activeUser) {
+  alert('No hay sesión activa. Serás enviado al login.');
+  window.location.href = 'index.html';
+}
+
+/* --- Initialize default users if not present --- */
+function ensureDefaults(){
+  const existing = JSON.parse(localStorage.getItem(USERS_KEY) || 'null');
+  if (!existing) {
+    const defaults = [
+      { username: "FelipeRevolution", password: "2013AF", role: "owner", saldo: 1000, purchases: [] },
+      { username: "VicazzOficial", password: "Vicazz", role: "cliente", saldo: 1, purchases: [] }
+    ];
+    localStorage.setItem(USERS_KEY, JSON.stringify(defaults));
+  }
+  // products
+  const products = JSON.parse(localStorage.getItem(PRODUCTS_KEY) || 'null');
+  if (!products) {
+    // start empty; Owner will add via panel
+    localStorage.setItem(PRODUCTS_KEY, JSON.stringify([]));
+  }
+  const orders = JSON.parse(localStorage.getItem(ORDERS_KEY) || 'null');
+  if (!orders) localStorage.setItem(ORDERS_KEY, JSON.stringify([]));
+}
+ensureDefaults();
+
+/* --- Utility functions --- */
+function saveUsers(u){ localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+function saveProducts(p){ localStorage.setItem(PRODUCTS_KEY, JSON.stringify(p)); }
+function saveOrders(o){ localStorage.setItem(ORDERS_KEY, JSON.stringify(o)); }
+
+function getUsers(){ return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); }
+function getProducts(){ return JSON.parse(localStorage.getItem(PRODUCTS_KEY) || '[]'); }
+function getOrders(){ return JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]'); }
+
+function findUser(username){
+  return getUsers().find(u => u.username === username);
+}
+
+function updateUser(updated){
+  const users = getUsers().map(u => u.username === updated.username ? updated : u);
+  saveUsers(users);
+}
+
+/* --- DOM refs --- */
+const u_name = document.getElementById('u_name');
+const u_role = document.getElementById('u_role');
+const u_saldo = document.getElementById('u_saldo');
+const userInfo = document.getElementById('userInfo');
+const logoutBtn = document.getElementById('logoutBtn');
+
+const ownerControls = document.getElementById('ownerControls');
+const addProductBtn = document.getElementById('addProductBtn');
+const p_name = document.getElementById('p_name');
+const p_price = document.getElementById('p_price');
+const p_stock = document.getElementById('p_stock');
+const p_image_file = document.getElementById('p_image_file');
+const p_image_url = document.getElementById('p_image_url');
+
+const productsGrid = document.getElementById('productsGrid');
+
+const ordersList = document.getElementById('ordersList');
+const myPurchases = document.getElementById('myPurchases');
+
+const userSelect = document.getElementById('userSelect');
+const userAddAmount = document.getElementById('userAddAmount');
+const addSaldoBtn = document.getElementById('addSaldoBtn');
+const exportBtn = document.getElementById('exportBtn');
+
+const popupWrap = document.getElementById('popupWrap');
+const popupOrder = document.getElementById('popupOrder');
+const popupMsg = document.getElementById('popupMsg');
+const popupClose = document.getElementById('popupClose');
+
+const searchInput = document.getElementById('searchInput');
+const filterStock = document.getElementById('filterStock');
+
+/* --- Render UI --- */
+function renderHeader(){
+  const short = activeUser.username;
+  userInfo.innerHTML = \`\${short} · <span style="color:var(--neon-cyan)">\${activeUser.role}</span>\`;
+  u_name.textContent = activeUser.username;
+  u_role.textContent = activeUser.role;
+  u_saldo.textContent = '$' + (activeUser.saldo ?? 0);
+  // show owner controls if owner
+  if (activeUser.role === 'owner') ownerControls.style.display = 'block';
+  else ownerControls.style.display = 'none';
+}
+
+/* Build user select for owner quick-saldo */
+function populateUserSelect(){
+  userSelect.innerHTML = '';
+  getUsers().forEach(u => {
+    const opt = document.createElement('option');
+    opt.value = u.username;
+    opt.textContent = u.username + ' · ' + u.role + ' · $' + u.saldo;
+    userSelect.appendChild(opt);
+  });
+}
+
+/* Products render */
+function renderProducts(){
+  const q = (searchInput.value || '').toLowerCase();
+  const filter = filterStock.value;
+  const products = getProducts().filter(p => {
+    if (q && !p.name.toLowerCase().includes(q)) return false;
+    if (filter === 'in' && p.stock <= 0) return false;
+    if (filter === 'out' && p.stock > 0) return false;
+    return true;
+  });
+
+  productsGrid.innerHTML = '';
+  products.forEach(p => {
+    const card = document.createElement('div'); card.className='card';
+    const img = document.createElement('img'); img.src = p.image || placeholderData();
+    const title = document.createElement('div'); title.className='title'; title.textContent = p.name;
+    const desc = document.createElement('div'); desc.className='meta'; desc.textContent = 'Precio: $' + p.price;
+    const row = document.createElement('div'); row.className='row';
+    const stock = document.createElement('div'); stock.className='stock'; stock.textContent = 'Stock: ' + p.stock;
+    const btn = document.createElement('button'); btn.className='buy-btn'; btn.textContent='Comprar';
+    if (p.stock <= 0) { btn.disabled = true; btn.textContent='Agotado'; }
+
+    btn.addEventListener('click', () => buyProduct(p.id));
+    row.appendChild(stock); row.appendChild(btn);
+
+    // if owner show edit/delete quick
+    if (activeUser.role === 'owner') {
+      const ownerRow = document.createElement('div'); ownerRow.style.display='flex'; ownerRow.style.justifyContent='space-between';
+      const actions = document.createElement('div');
+      const editBtn = document.createElement('button'); editBtn.className='buy-btn'; editBtn.style.marginRight='8px'; editBtn.textContent='Editar';
+      const delBtn = document.createElement('button'); delBtn.className='buy-btn'; delBtn.textContent='Eliminar';
+      editBtn.addEventListener('click', () => openEditProduct(p.id));
+      delBtn.addEventListener('click', () => deleteProduct(p.id));
+      actions.appendChild(editBtn); actions.appendChild(delBtn);
+      card.appendChild(img); card.appendChild(title); card.appendChild(desc); card.appendChild(row); card.appendChild(actions);
+    } else {
+      card.appendChild(img); card.appendChild(title); card.appendChild(desc); card.appendChild(row);
+    }
+
+    productsGrid.appendChild(card);
+  });
+}
+
+/* Orders render */
+function renderOrders(){
+  const orders = getOrders().slice().sort((a,b)=>b.createdAt - a.createdAt);
+  ordersList.innerHTML = '';
+  orders.forEach(o => {
+    const el = document.createElement('div'); el.className='order';
+    const header = document.createElement('div'); header.className='row';
+    const left = document.createElement('div');
+    left.innerHTML = '<div style="font-weight:800">'+o.productName+'</div><div class="small-muted">#'+o.orderId+'</div>';
+    const status = document.createElement('div'); status.innerHTML = '<div class="tag">'+o.status.toUpperCase()+'</div>';
+    header.appendChild(left); header.appendChild(status);
+    el.appendChild(header);
+    el.appendChild(document.createElement('hr'));
+    const details = document.createElement('div');
+    details.innerHTML = '<div class="small-muted">Comprador: '+o.username+'</div>' +
+                        '<div class="small-muted">Precio: $'+o.price+' · Cantidad: 1</div>' +
+                        '<div class="small-muted">Fecha: '+ new Date(o.createdAt).toLocaleString() +'</div>';
+    el.appendChild(details);
+
+    // if owner and pending -> show assign license form
+    if (activeUser.role === 'owner' && o.status === 'pending') {
+      const form = document.createElement('div'); form.style.marginTop='10px';
+      const label = document.createElement('label'); label.textContent='Asignar licencia (real):';
+      const inp = document.createElement('input'); inp.className='input'; inp.placeholder='Código de licencia real';
+      const dur = document.createElement('input'); dur.className='input'; dur.placeholder='Duración (días) - opcional';
+      const btn = document.createElement('button'); btn.className='btn'; btn.textContent='Asignar licencia';
+      btn.addEventListener('click', () => {
+        const code = inp.value.trim();
+        const days = dur.value.trim();
+        if (!code) return alert('Ingresa la licencia real antes de asignar.');
+        assignLicenseToOrder(o.orderId, code, days || null);
+      });
+      form.appendChild(label); form.appendChild(inp); form.appendChild(dur); form.appendChild(btn);
+      el.appendChild(form);
+    } else if (o.status === 'completed') {
+      el.appendChild(document.createElement('hr'));
+      const lic = document.createElement('div'); lic.innerHTML = '<div style="font-weight:800; color:var(--neon-cyan)">Licencia:</div>' +
+        '<div class="neon-code" style="color:var(--neon-cyan); background:transparent; border:none; padding:6px 0; letter-spacing:1px">' +
+        (o.license || '--') + (o.duration ? ' · ' + o.duration + ' días' : '') + '</div>';
+      el.appendChild(lic);
+    }
+
+    ordersList.appendChild(el);
+  });
+}
+
+/* My purchases (right panel) */
+function renderMyPurchases(){
+  const me = findUser(activeUser.username);
+  myPurchases.innerHTML = '';
+  if (!me || !me.purchases || me.purchases.length === 0) {
+    myPurchases.textContent = 'No tienes compras todavía.';
+    return;
+  }
+  me.purchases.slice().reverse().forEach(p => {
+    const d = document.createElement('div'); d.style.marginBottom='10px';
+    d.innerHTML = '<div style="font-weight:700">'+p.productName+'</div>' +
+                  '<div class="small-muted">Pedido #'+p.orderId+' · Estado: '+p.status+'</div>' +
+                  (p.status === 'completed' ? '<div class="neon-code">'+p.license+' · '+(p.duration ? p.duration+' días' : '')+'</div>' : '');
+    myPurchases.appendChild(d);
+  });
+}
+
+/* Placeholder data url if missing */
+function placeholderData(){
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#111"/><text x="50%" y="50%" fill="#888" font-size="24" font-family="Arial" text-anchor="middle">Sin imagen</text></svg>');
+}
+
+/* --- Actions --- */
+function buyProduct(productId){
+  const products = getProducts();
+  const prod = products.find(p => p.id === productId);
+ 
