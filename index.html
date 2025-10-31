@@ -1,143 +1,141 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FelipeRevolution - Login</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
     body {
       margin: 0;
       height: 100vh;
+      background: radial-gradient(circle at top, #060608 0%, #000 80%);
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      background: radial-gradient(circle at top, #0a0a0a, #000);
-      font-family: 'Poppins', sans-serif;
       color: #fff;
       overflow: hidden;
     }
-
-    h1 {
-      font-size: 2.5em;
-      letter-spacing: 2px;
-      color: #ff00cc;
-      text-shadow: 0 0 10px #ff00cc, 0 0 25px #00e6ff;
-      margin-bottom: 25px;
-    }
-
-    h1 span {
-      color: #00e6ff;
-    }
-
-    .login-box {
-      background: rgba(15, 15, 15, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .login-container {
+      background: rgba(10,10,20,0.8);
+      padding: 40px 50px;
       border-radius: 20px;
-      padding: 35px 30px;
-      width: 320px;
+      box-shadow: 0 0 25px #0ff2, 0 0 50px #f004;
       text-align: center;
-      box-shadow: 0 0 25px rgba(255, 0, 204, 0.2), 0 0 20px rgba(0, 230, 255, 0.2);
-      animation: fadeIn 1s ease;
-    }
-
-    .login-box h2 {
-      color: #00e6ff;
-      margin-bottom: 20px;
-      font-size: 1.2em;
-    }
-
-    .login-box input {
       width: 90%;
-      margin: 8px 0;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      background: #111;
-      color: #fff;
-      font-size: 1em;
-      text-align: center;
-      outline: none;
-      transition: all 0.2s;
+      max-width: 400px;
+      border: 2px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
     }
-
-    .login-box input:focus {
-      box-shadow: 0 0 10px #00e6ff;
+    .login-container h1 {
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      color: #0ff;
+      text-shadow: 0 0 8px #0ff;
     }
-
-    .login-box button {
+    .input-box {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    label {
+      display: block;
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-bottom: 6px;
+    }
+    input {
       width: 100%;
-      margin-top: 15px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.3s;
+    }
+    input:focus {
+      background: rgba(255,255,255,0.2);
+      box-shadow: 0 0 10px #0ff4;
+    }
+    button {
+      width: 100%;
       padding: 12px;
       border: none;
       border-radius: 10px;
-      background: linear-gradient(90deg, #ff00cc, #00e6ff);
+      background: linear-gradient(90deg, #00ffff55, #ff004455);
       color: #fff;
+      font-size: 1rem;
       font-weight: bold;
-      font-size: 1em;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: 0.4s;
+      text-shadow: 0 0 5px #000;
     }
-
-    .login-box button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #ff00cc, 0 0 15px #00e6ff;
+    button:hover {
+      background: linear-gradient(90deg, #00ffffaa, #ff0044aa);
+      box-shadow: 0 0 15px #0ff8, 0 0 25px #f004;
     }
-
-    .error-text {
-      color: #ff6666;
+    .error {
       margin-top: 10px;
-      font-size: 0.9em;
+      color: #ff4444;
+      font-size: 0.9rem;
+      display: none;
     }
-
-    footer {
-      margin-top: 25px;
-      font-size: 0.8em;
-      color: #999;
-      text-shadow: 0 0 5px #00e6ff;
+    .footer {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: #888;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes neonGlow {
+      from { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff; }
+      to { text-shadow: 0 0 10px #0ff, 0 0 20px #f0f, 0 0 30px #0ff; }
     }
   </style>
 </head>
 <body>
-  <h1>Felipe<span>Revolution</span></h1>
-
-  <div class="login-box">
-    <h2>Inicia sesión</h2>
-    <input type="text" id="username" placeholder="👤 Usuario" />
-    <input type="password" id="password" placeholder="🔒 Contraseña" />
-    <button id="loginBtn">Entrar</button>
-    <p id="loginError" class="error-text"></p>
+  <div class="login-container">
+    <h1>FelipeRevolution</h1>
+    <div class="input-box">
+      <label for="username">Usuario</label>
+      <input type="text" id="username" placeholder="Tu usuario">
+    </div>
+    <div class="input-box">
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" placeholder="Tu contraseña">
+    </div>
+    <button id="loginBtn">Iniciar sesión</button>
+    <div class="error" id="errorMsg">Usuario o contraseña incorrectos</div>
+    <div class="footer">© 2025 FelipeRevolution</div>
   </div>
 
-  <footer>💥 Panel oficial de FelipeRevolution 💥</footer>
-
   <script>
-    document.getElementById("loginBtn").addEventListener("click", () => {
-      const user = document.getElementById("username").value.trim();
-      const pass = document.getElementById("password").value.trim();
-      const error = document.getElementById("loginError");
+    const loginBtn = document.getElementById('loginBtn');
+    const errorMsg = document.getElementById('errorMsg');
 
-      const users = [
-        { username: "FelipeRevolution", password: "2013AF", role: "owner", saldo: 1000 },
-        { username: "VicazzOficial", password: "Vicazz", role: "cliente", saldo: 1 }
-      ];
+    const users = [
+      { username: 'FelipeRevolution', password: '2013AF', role: 'owner', saldo: 1000 },
+      { username: 'VicazzOficial', password: 'Vicazz', role: 'cliente', saldo: 1 }
+    ];
+
+    loginBtn.addEventListener('click', () => {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
 
       const found = users.find(u => u.username === user && u.password === pass);
-
       if (found) {
-        localStorage.setItem("activeUser", JSON.stringify(found));
-        window.location.href = "panel.html";
+        localStorage.setItem('activeUser', JSON.stringify(found));
+        window.location.href = 'panel.html';
       } else {
-        error.textContent = "❌ Usuario o contraseña incorrectos.";
+        errorMsg.style.display = 'block';
       }
+    });
+
+    document.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') loginBtn.click();
     });
   </script>
 </body>
-</html>
+    </html>
