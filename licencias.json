@@ -1,0 +1,18 @@
+{
+  "licencias": [
+    {
+      "codigo": "REV-001",
+      "producto": "Premium Pack",
+      "usuario": "Vicazz",
+      "dias": 30,
+      "fecha": "2025-11-01"
+    },
+    {
+      "codigo": "REV-002",
+      "producto": "VIP Acceso",
+      "usuario": "FelipeRevolution",
+      "dias": 15,
+      "fecha": "2025-10-30"
+    }
+  ]
+}
