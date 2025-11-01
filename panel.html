@@ -329,5 +329,47 @@
     });
   });
   </script>
+  <section id="licencias-owner" class="owner-section" style="display:none;">
+  <h2>🔑 Licencias registradas</h2>
+  <div id="listaLicencias">Cargando licencias...</div>
+  <button id="recargarLicencias">🔄 Recargar</button>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const usuario = JSON.parse(localStorage.getItem('usuarioActivo'));
+    if (usuario && usuario.rol === 'owner') {
+      document.getElementById('licencias-owner').style.display = 'block';
+      cargarLicencias();
+    }
+
+    document.getElementById('recargarLicencias').addEventListener('click', cargarLicencias);
+  });
+
+  async function cargarLicencias() {
+    const contenedor = document.getElementById('listaLicencias');
+    try {
+      const respuesta = await fetch('licencias.json');
+      if (!respuesta.ok) throw new Error('No se pudo leer licencias.json');
+      const datos = await respuesta.json();
+      if (datos.licencias && datos.licencias.length > 0) {
+        contenedor.innerHTML = datos.licencias.map(l => `
+          <div class="licencia-card">
+            <b>Código:</b> ${l.codigo}<br>
+            <b>Producto:</b> ${l.producto}<br>
+            <b>Usuario:</b> ${l.usuario}<br>
+            <b>Días:</b> ${l.dias}<br>
+            <b>Fecha:</b> ${l.fecha}
+          </div>
+        `).join('');
+      } else {
+        contenedor.innerHTML = '<i>No hay licencias registradas.</i>';
+      }
+    } catch (err) {
+      contenedor.innerHTML = '<i>Error al cargar licencias.json</i>';
+      console.error(err);
+    }
+  }
+</script>
 </body>
   </html>
