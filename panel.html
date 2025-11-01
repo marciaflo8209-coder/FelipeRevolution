@@ -3,373 +3,278 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FelipeRevolution Panel</title>
+  <title>FelipeRevolution - Panel</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
     body {
       margin: 0;
-      background: #000;
+      background: #0a0a0f;
       color: #fff;
-      min-height: 100vh;
-      overflow-x: hidden;
+      font-family: 'Poppins', sans-serif;
     }
     header {
-      background: linear-gradient(90deg,#ff008c,#00ffff);
-      color: #fff;
-      padding: 15px 25px;
+      background: linear-gradient(90deg, #000, #13132b);
+      padding: 10px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
+      align-items: center;
+      box-shadow: 0 0 10px #0ff;
     }
-    header h1 {
-      font-size: 1.3rem;
-      text-shadow: 0 0 10px #000;
-    }
-    header button {
-      background: rgba(255,255,255,0.1);
-      border: none;
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    header button:hover {
-      background: rgba(255,255,255,0.25);
-    }
-
-    .loading {
-      text-align: center;
-      padding: 100px 0;
-      font-size: 1.2rem;
+    .logo {
+      font-size: 1.5em;
       color: #0ff;
-    }
-
-    .panel-content {
-      display: none;
-      padding: 20px;
-    }
-
-    .section {
-      background: rgba(255,255,255,0.05);
-      border-radius: 15px;
-      padding: 15px;
-      margin-bottom: 25px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.05);
-    }
-    .section h2 {
-      color: #00ffff;
-      margin-top: 0;
-      font-size: 1.1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding-bottom: 5px;
-    }
-
-    /* Productos */
-    .productos-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
-    .producto {
-      background: rgba(255,255,255,0.07);
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,255,255,0.2);
-      transition: 0.3s;
-    }
-    .producto:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 15px rgba(0,255,255,0.4);
-    }
-    .producto img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-    .producto-info {
-      padding: 10px;
-    }
-    .producto-info h3 {
-      margin: 5px 0;
-      font-size: 1rem;
-      color: #0ff;
-    }
-    .producto-info p {
-      font-size: 0.9rem;
-      color: #ccc;
-    }
-    .btn-comprar {
-      display: block;
-      width: 100%;
-      background: linear-gradient(90deg,#00ffff55,#ff004455);
-      border: none;
-      color: #fff;
-      padding: 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-top: 8px;
       font-weight: bold;
     }
-    .btn-comprar:hover {
-      background: linear-gradient(90deg,#00ffffaa,#ff0044aa);
+    .user-info {
+      text-align: right;
+      font-size: 0.9em;
     }
-
-    /* Popup compra */
-    .popup {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      display: none;
+    .container {
+      padding: 20px;
     }
-    .popup-content {
-      background: #111;
-      border: 2px solid #0ff;
-      border-radius: 15px;
-      padding: 25px;
-      width: 90%;
-      max-width: 380px;
-      text-align: center;
-      box-shadow: 0 0 20px #0ff8;
-    }
-    .popup-content h3 {
+    h2 {
       color: #0ff;
-      margin-bottom: 10px;
+      border-bottom: 2px solid #0ff;
+      padding-bottom: 5px;
     }
-    .popup-content p {
-      color: #ccc;
-      margin: 5px 0;
-    }
-    .popup-content button {
-      background: #0ff2;
-      border: none;
-      color: #fff;
-      margin-top: 15px;
-      padding: 10px 20px;
+    .section {
+      background: #13132b;
       border-radius: 10px;
+      margin-bottom: 20px;
+      padding: 15px;
+      box-shadow: 0 0 10px #0ff3;
+    }
+    input, select, button {
+      background: #0a0a0f;
+      color: #0ff;
+      border: 1px solid #0ff;
+      padding: 8px;
+      border-radius: 6px;
+      margin: 4px 0;
+      outline: none;
+    }
+    button:hover {
+      background: #0ff;
+      color: #000;
       cursor: pointer;
     }
-
-    /* Owner */
-    #ownerSection { display: none; }
+    .item {
+      background: #0f0f2a;
+      padding: 10px;
+      margin: 6px 0;
+      border-radius: 6px;
+      box-shadow: 0 0 5px #0ff2;
+    }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>FelipeRevolution Panel</h1>
-    <div>
-      <span id="userDisplay"></span>
-      <button id="logoutBtn">Salir</button>
+    <div class="logo">⚡ FelipeRevolution Panel</div>
+    <div class="user-info">
+      Usuario: <span id="userName"></span><br>
+      Rol: <span id="userRole"></span><br>
+      Saldo: $<span id="userBalance"></span><br>
+      <button id="logoutBtn">Cerrar sesión</button>
     </div>
   </header>
 
-  <div class="loading">Cargando...</div>
+  <div class="container">
+    <div id="ownerPanel" class="hidden">
+      <h2>🧠 Panel del Owner</h2>
 
-  <div class="panel-content">
-    <div class="section">
-      <h2>Cuenta</h2>
-      <p><b>Usuario:</b> <span id="userName"></span></p>
-      <p><b>Rol:</b> <span id="userRole"></span></p>
-      <p><b>Saldo:</b> <span id="userBalance"></span></p>
-    </div>
+      <!-- 🔹 GESTIÓN DE USUARIOS -->
+      <div class="section">
+        <h3>👤 Gestión de usuarios</h3>
+        <button onclick="cargarUsuarios()">🔄 Recargar usuarios</button>
+        <div id="listaUsuarios">Cargando...</div>
+      </div>
 
-    <div class="section">
-      <h2>Productos disponibles</h2>
-      <div class="productos-container" id="productosList"></div>
-    </div>
+      <!-- 🔹 GESTIÓN DE PRODUCTOS -->
+      <div class="section">
+        <h3>🛒 Gestión de productos</h3>
+        <form id="formProducto">
+          <input type="text" id="nombreProducto" placeholder="Nombre del producto" required>
+          <input type="number" id="precioProducto" placeholder="Precio" required>
+          <input type="number" id="stockProducto" placeholder="Stock" required>
+          <input type="text" id="imagenProducto" placeholder="URL de imagen">
+          <button type="submit">Agregar producto</button>
+        </form>
+        <div id="listaProductos">Cargando...</div>
+      </div>
 
-    <div class="section" id="ownerSection">
-      <h2>Panel del Owner</h2>
-      <p>Agregar producto nuevo:</p>
-      <input type="text" id="nombreProd" placeholder="Nombre del producto"><br><br>
-      <input type="number" id="precioProd" placeholder="Precio"><br><br>
-      <input type="number" id="stockProd" placeholder="Stock"><br><br>
-      <input type="text" id="imgProd" placeholder="Ruta de imagen (ej: img/diamantes.png)"><br><br>
-      <button id="addProductBtn">Agregar producto</button>
-    </div>
-  </div>
-
-  <!-- Popup compra -->
-  <div class="popup" id="popupCompra">
-    <div class="popup-content">
-      <h3>✅ Compra Exitosa</h3>
-      <p id="mensajeCompra"></p>
-      <button onclick="cerrarPopup()">Cerrar</button>
+      <!-- 🔹 GESTIÓN DE LICENCIAS -->
+      <div class="section">
+        <h3>🔑 Gestión de licencias</h3>
+        <form id="formLicencia">
+          <input type="text" id="codigoLicencia" placeholder="Código" required>
+          <input type="text" id="usuarioLicencia" placeholder="Usuario" required>
+          <input type="text" id="productoLicencia" placeholder="Producto" required>
+          <input type="number" id="diasLicencia" placeholder="Duración (días)" required>
+          <button type="submit">Agregar licencia</button>
+        </form>
+        <div id="listaLicencias">Cargando...</div>
+      </div>
     </div>
   </div>
 
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
     const user = JSON.parse(localStorage.getItem('activeUser'));
 
+    // Si no hay sesión activa, volver al login
     if (!user) {
-      window.location.href = 'index.html';
-      return;
+      window.location.href = "index.html";
     }
 
-    const userName = document.getElementById('userName');
-    const userRole = document.getElementById('userRole');
-    const userBalance = document.getElementById('userBalance');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const content = document.querySelector('.panel-content');
-    const loading = document.querySelector('.loading');
-    const productosList = document.getElementById('productosList');
-    const ownerSection = document.getElementById('ownerSection');
+    document.getElementById('userName').textContent = user.username;
+    document.getElementById('userRole').textContent = user.role;
+    document.getElementById('userBalance').textContent = user.saldo.toFixed(2);
 
-    userName.textContent = user.username;
-    userRole.textContent = user.role;
-    userBalance.textContent = `$${user.saldo.toFixed(2)}`;
-
-    if (user.role === 'owner') {
-      ownerSection.style.display = 'block';
-    }
-
-    setTimeout(() => {
-      loading.style.display = 'none';
-      content.style.display = 'block';
-    }, 700);
-
-    logoutBtn.addEventListener('click', () => {
+    document.getElementById('logoutBtn').addEventListener('click', () => {
       localStorage.removeItem('activeUser');
       window.location.href = 'index.html';
     });
 
-    // Productos iniciales (ejemplo)
-    let productos = JSON.parse(localStorage.getItem('productos')) || [
-      { nombre: 'Diamantes FF', precio: 2.5, stock: 5, imagen: 'img/diamantes.png' },
-      { nombre: 'Licencia Premium', precio: 4, stock: 3, imagen: 'img/licencia.png' }
-    ];
-    localStorage.setItem('productos', JSON.stringify(productos));
-
-    function mostrarProductos() {
-      productosList.innerHTML = '';
-      productos.forEach((p, i) => {
-        const div = document.createElement('div');
-        div.className = 'producto';
-        div.innerHTML = `
-          <img src="${p.imagen}" alt="${p.nombre}">
-          <div class="producto-info">
-            <h3>${p.nombre}</h3>
-            <p>Precio: $${p.precio}</p>
-            <p>Stock: ${p.stock}</p>
-            <button class="btn-comprar" data-id="${i}">Comprar</button>
-          </div>
-        `;
-        productosList.appendChild(div);
-      });
-
-      document.querySelectorAll('.btn-comprar').forEach(btn => {
-        btn.addEventListener('click', e => {
-          const id = e.target.dataset.id;
-          comprarProducto(id);
-        });
-      });
-    }
-
-    mostrarProductos();
-
-    // Función comprar
-    function comprarProducto(id) {
-      const p = productos[id];
-      if (p.stock <= 0) {
-        alert('Producto sin stock.');
-        return;
-      }
-      if (user.saldo < p.precio) {
-        alert('Saldo insuficiente.');
-        return;
-      }
-      p.stock -= 1;
-      user.saldo -= p.precio;
-      localStorage.setItem('activeUser', JSON.stringify(user));
-      localStorage.setItem('productos', JSON.stringify(productos));
-      userBalance.textContent = `$${user.saldo.toFixed(2)}`;
-      mostrarProductos();
-
-      const pedidoId = Math.floor(Math.random() * 90000 + 10000);
-      const popup = document.getElementById('popupCompra');
-      const msg = document.getElementById('mensajeCompra');
-      msg.innerHTML = `Número de pedido: <b>#${pedidoId}</b><br>Licencia generada: <b>(agregada manualmente)</b>`;
-      popup.style.display = 'flex';
-    }
-
-    window.cerrarPopup = function() {
-      document.getElementById('popupCompra').style.display = 'none';
-    }
-
-    // Agregar producto (owner)
-    const addBtn = document.getElementById('addProductBtn');
-    addBtn.addEventListener('click', () => {
-      const n = document.getElementById('nombreProd').value.trim();
-      const pr = parseFloat(document.getElementById('precioProd').value);
-      const st = parseInt(document.getElementById('stockProd').value);
-      const img = document.getElementById('imgProd').value.trim();
-
-      if (!n || isNaN(pr) || isNaN(st) || !img) {
-        alert('Completa todos los campos');
-        return;
-      }
-
-      productos.push({ nombre: n, precio: pr, stock: st, imagen: img });
-      localStorage.setItem('productos', JSON.stringify(productos));
-      mostrarProductos();
-
-      document.getElementById('nombreProd').value = '';
-      document.getElementById('precioProd').value = '';
-      document.getElementById('stockProd').value = '';
-      document.getElementById('imgProd').value = '';
-      alert('Producto agregado correctamente.');
-    });
-  });
-  </script>
-  <section id="licencias-owner" class="owner-section" style="display:none;">
-  <h2>🔑 Licencias registradas</h2>
-  <div id="listaLicencias">Cargando licencias...</div>
-  <button id="recargarLicencias">🔄 Recargar</button>
-</section>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const usuario = JSON.parse(localStorage.getItem('usuarioActivo'));
-    if (usuario && usuario.rol === 'owner') {
-      document.getElementById('licencias-owner').style.display = 'block';
+    // Mostrar panel del owner
+    if (user.role === "owner") {
+      document.getElementById("ownerPanel").classList.remove("hidden");
+      cargarUsuarios();
+      cargarProductos();
       cargarLicencias();
     }
 
-    document.getElementById('recargarLicencias').addEventListener('click', cargarLicencias);
-  });
-
-  async function cargarLicencias() {
-    const contenedor = document.getElementById('listaLicencias');
-    try {
-      const respuesta = await fetch('licencias.json');
-      if (!respuesta.ok) throw new Error('No se pudo leer licencias.json');
-      const datos = await respuesta.json();
-      if (datos.licencias && datos.licencias.length > 0) {
-        contenedor.innerHTML = datos.licencias.map(l => `
-          <div class="licencia-card">
-            <b>Código:</b> ${l.codigo}<br>
-            <b>Producto:</b> ${l.producto}<br>
-            <b>Usuario:</b> ${l.usuario}<br>
-            <b>Días:</b> ${l.dias}<br>
-            <b>Fecha:</b> ${l.fecha}
+    // === USUARIOS ===
+    async function cargarUsuarios() {
+      const cont = document.getElementById("listaUsuarios");
+      try {
+        const res = await fetch("usuarios.json");
+        const data = await res.json();
+        cont.innerHTML = data.usuarios.map((u, i) => `
+          <div class="item">
+            <b>${u.username}</b> (${u.role}) - Saldo: $${u.saldo}
+            <br>
+            <button onclick="cambiarRol(${i})">Cambiar rol</button>
+            <button onclick="sumarSaldo(${i})">+ Saldo</button>
+            <button onclick="restarSaldo(${i})">- Saldo</button>
+            <button onclick="eliminarUsuario(${i})">Eliminar</button>
           </div>
-        `).join('');
-      } else {
-        contenedor.innerHTML = '<i>No hay licencias registradas.</i>';
+        `).join("");
+        localStorage.setItem("usuariosTemp", JSON.stringify(data.usuarios));
+      } catch (e) {
+        cont.innerHTML = "Error al cargar usuarios.json";
       }
-    } catch (err) {
-      contenedor.innerHTML = '<i>Error al cargar licencias.json</i>';
-      console.error(err);
     }
-  }
-</script>
+
+    function cambiarRol(i) {
+      let lista = JSON.parse(localStorage.getItem("usuariosTemp"));
+      lista[i].role = lista[i].role === "cliente" ? "admin" : "cliente";
+      localStorage.setItem("usuariosTemp", JSON.stringify(lista));
+      alert(`Rol cambiado a ${lista[i].role}`);
+      cargarUsuarios();
+    }
+    function sumarSaldo(i) {
+      let lista = JSON.parse(localStorage.getItem("usuariosTemp"));
+      lista[i].saldo += 10;
+      localStorage.setItem("usuariosTemp", JSON.stringify(lista));
+      cargarUsuarios();
+    }
+    function restarSaldo(i) {
+      let lista = JSON.parse(localStorage.getItem("usuariosTemp"));
+      lista[i].saldo = Math.max(0, lista[i].saldo - 10);
+      localStorage.setItem("usuariosTemp", JSON.stringify(lista));
+      cargarUsuarios();
+    }
+    function eliminarUsuario(i) {
+      let lista = JSON.parse(localStorage.getItem("usuariosTemp"));
+      if (confirm("¿Eliminar este usuario?")) {
+        lista.splice(i, 1);
+        localStorage.setItem("usuariosTemp", JSON.stringify(lista));
+        cargarUsuarios();
+      }
+    }
+
+    // === PRODUCTOS ===
+    async function cargarProductos() {
+      const cont = document.getElementById("listaProductos");
+      try {
+        const res = await fetch("productos.json");
+        const data = await res.json();
+        cont.innerHTML = data.productos.map((p, i) => `
+          <div class="item">
+            <b>${p.nombre}</b> - $${p.precio} | Stock: ${p.stock}
+            <br><img src="${p.imagen}" width="100"><br>
+            <button onclick="eliminarProducto(${i})">Eliminar</button>
+          </div>
+        `).join("");
+        localStorage.setItem("productosTemp", JSON.stringify(data.productos));
+      } catch (e) {
+        cont.innerHTML = "Error al cargar productos.json";
+      }
+    }
+
+    document.getElementById("formProducto").addEventListener("submit", e => {
+      e.preventDefault();
+      const lista = JSON.parse(localStorage.getItem("productosTemp")) || [];
+      lista.push({
+        nombre: nombreProducto.value,
+        precio: parseFloat(precioProducto.value),
+        stock: parseInt(stockProducto.value),
+        imagen: imagenProducto.value || "assets/images/default.png"
+      });
+      localStorage.setItem("productosTemp", JSON.stringify(lista));
+      alert("Producto agregado (local)");
+      e.target.reset();
+      cargarProductos();
+    });
+
+    function eliminarProducto(i) {
+      let lista = JSON.parse(localStorage.getItem("productosTemp"));
+      lista.splice(i, 1);
+      localStorage.setItem("productosTemp", JSON.stringify(lista));
+      cargarProductos();
+    }
+
+    // === LICENCIAS ===
+    async function cargarLicencias() {
+      const cont = document.getElementById("listaLicencias");
+      try {
+        const res = await fetch("licencias.json");
+        const data = await res.json();
+        cont.innerHTML = data.licencias.map((l, i) => `
+          <div class="item">
+            <b>${l.codigo}</b> - ${l.usuario} (${l.producto}) | ${l.dias} días
+            <button onclick="eliminarLicencia(${i})">Eliminar</button>
+          </div>
+        `).join("");
+        localStorage.setItem("licenciasTemp", JSON.stringify(data.licencias));
+      } catch (e) {
+        cont.innerHTML = "Error al cargar licencias.json";
+      }
+    }
+
+    document.getElementById("formLicencia").addEventListener("submit", e => {
+      e.preventDefault();
+      const lista = JSON.parse(localStorage.getItem("licenciasTemp")) || [];
+      lista.push({
+        codigo: codigoLicencia.value,
+        usuario: usuarioLicencia.value,
+        producto: productoLicencia.value,
+        dias: parseInt(diasLicencia.value),
+        fecha: new Date().toISOString().split('T')[0]
+      });
+      localStorage.setItem("licenciasTemp", JSON.stringify(lista));
+      alert("Licencia agregada (local)");
+      e.target.reset();
+      cargarLicencias();
+    });
+
+    function eliminarLicencia(i) {
+      let lista = JSON.parse(localStorage.getItem("licenciasTemp"));
+      lista.splice(i, 1);
+      localStorage.setItem("licenciasTemp", JSON.stringify(lista));
+      cargarLicencias();
+    }
+  </script>
 </body>
   </html>
