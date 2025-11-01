@@ -1,373 +1,333 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FelipeRevolution - Panel</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FelipeRevolution Panel</title>
   <style>
-    /* Tema oscuro neón (rojo / cyan) */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-    :root{
-      --bg:#040406;
-      --card:#0f1113;
-      --neon-pink:#ff00cc;
-      --neon-cyan:#00e6ff;
-      --muted:#9aa3ad;
-      --accent:#ffd9f6;
+    * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    *{ box-sizing:border-box; font-family:'Poppins',sans-serif; }
-    body{ margin:0; background:linear-gradient(180deg,#030304,#06060a); color:#eaf6ff; min-height:100vh; }
-    header{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:16px 20px; background:rgba(4,4,6,0.4); position:sticky; top:0; z-index:40;
-      border-bottom:1px solid rgba(255,255,255,0.03);
-      box-shadow:0 6px 30px rgba(0,0,0,0.6);
+    header {
+      background: linear-gradient(90deg,#ff008c,#00ffff);
+      color: #fff;
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
-    .brand{ display:flex; align-items:center; gap:12px; }
-    .logo{
-      width:48px; height:48px; border-radius:10px; display:flex; align-items:center; justify-content:center;
-      font-weight:800; color:#071018; background:linear-gradient(135deg,var(--neon-pink),var(--neon-cyan));
-      box-shadow:0 8px 30px rgba(0,0,0,0.6);
+    header h1 {
+      font-size: 1.3rem;
+      text-shadow: 0 0 10px #000;
     }
-    h1{ margin:0; font-size:1.05rem; }
-    .user-info{ display:flex; align-items:center; gap:12px; }
-    .chip{
-      background:linear-gradient(90deg, rgba(255,0,204,0.06), rgba(0,230,255,0.06));
-      padding:8px 12px; border-radius:12px; color:var(--muted); font-weight:700; border:1px solid rgba(255,255,255,0.02);
+    header button {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    .btn{ background:linear-gradient(90deg,var(--neon-pink),var(--neon-cyan)); color:#071018; border:none; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:800; }
-    main{ display:grid; grid-template-columns:320px 1fr 380px; gap:18px; padding:18px; }
-    .panel{ background:var(--card); border-radius:12px; padding:14px; border:1px solid rgba(255,255,255,0.02); box-shadow:0 12px 40px rgba(0,0,0,0.6); }
-    .panel h3{ margin:0 0 8px 0; color:var(--neon-cyan) }
-    label{ font-size:0.86rem; color:var(--muted); display:block; margin-top:8px; }
-    input, textarea, select { width:100%; padding:8px; margin-top:6px; border-radius:8px; background:#0b0b0c; border:none; color:#eaf4ff; }
-    .products-grid{ display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:12px; }
-    .card{ padding:10px; border-radius:10px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); display:flex; flex-direction:column; gap:8px; }
-    .card img{ width:100%; height:130px; object-fit:cover; border-radius:8px; background:#0a0a0a; }
-    .row{ display:flex; justify-content:space-between; align-items:center; gap:8px; }
-    .stock{ background:rgba(255,255,255,0.03); padding:6px 8px; border-radius:8px; font-weight:700; }
-    .small{ color:var(--muted); font-size:0.9rem; }
-    .orders{ display:flex; flex-direction:column; gap:10px; max-height:68vh; overflow:auto; padding-right:6px; }
-    .order{ background:#0c0c0d; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.02); }
-    .neon-code{ font-weight:800; letter-spacing:1px; padding:8px; border-radius:8px; background:linear-gradient(90deg, rgba(255,0,204,0.04), rgba(0,230,255,0.04)); color:var(--neon-pink); }
-    .popup-wrap{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); z-index:120; }
-    .popup{ width:480px; max-width:94%; padding:20px; border-radius:12px; background:linear-gradient(180deg,#060607,#0b0b0c); border:1px solid rgba(255,0,204,0.16); text-align:center; }
-    .tabs{ display:flex; gap:8px; margin-bottom:10px; }
-    .tab{ padding:8px 10px; border-radius:8px; cursor:pointer; background:rgba(255,255,255,0.02); font-weight:700; color:var(--muted); }
-    .tab.active{ background:linear-gradient(90deg,var(--neon-pink),var(--neon-cyan)); color:#071018; }
-    .small-btn{ padding:6px 8px; border-radius:8px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.02); cursor:pointer; font-weight:700; color:var(--muted); }
-    .muted{ color:var(--muted); font-size:0.9rem; }
-    .table{ width:100%; border-collapse:collapse; }
-    .table td,.table th{ padding:8px; border-bottom:1px solid rgba(255,255,255,0.02); }
-    @media (max-width:1000px){ main{ grid-template-columns:1fr; padding:12px } .orders{ max-height:unset } }
+    header button:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 100px 0;
+      font-size: 1.2rem;
+      color: #0ff;
+    }
+
+    .panel-content {
+      display: none;
+      padding: 20px;
+    }
+
+    .section {
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.05);
+    }
+    .section h2 {
+      color: #00ffff;
+      margin-top: 0;
+      font-size: 1.1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 5px;
+    }
+
+    /* Productos */
+    .productos-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+    .producto {
+      background: rgba(255,255,255,0.07);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,255,255,0.2);
+      transition: 0.3s;
+    }
+    .producto:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(0,255,255,0.4);
+    }
+    .producto img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .producto-info {
+      padding: 10px;
+    }
+    .producto-info h3 {
+      margin: 5px 0;
+      font-size: 1rem;
+      color: #0ff;
+    }
+    .producto-info p {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    .btn-comprar {
+      display: block;
+      width: 100%;
+      background: linear-gradient(90deg,#00ffff55,#ff004455);
+      border: none;
+      color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+    .btn-comprar:hover {
+      background: linear-gradient(90deg,#00ffffaa,#ff0044aa);
+    }
+
+    /* Popup compra */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      display: none;
+    }
+    .popup-content {
+      background: #111;
+      border: 2px solid #0ff;
+      border-radius: 15px;
+      padding: 25px;
+      width: 90%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: 0 0 20px #0ff8;
+    }
+    .popup-content h3 {
+      color: #0ff;
+      margin-bottom: 10px;
+    }
+    .popup-content p {
+      color: #ccc;
+      margin: 5px 0;
+    }
+    .popup-content button {
+      background: #0ff2;
+      border: none;
+      color: #fff;
+      margin-top: 15px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* Owner */
+    #ownerSection { display: none; }
   </style>
 </head>
 <body>
   <header>
-    <div class="brand">
-      <div class="logo">FR</div>
-      <div>
-        <h1>Felipe<span style="color:var(--neon-cyan)">Revolution</span></h1>
-        <div class="muted">Panel local — Admin</div>
-      </div>
-    </div>
-
-    <div class="user-info">
-      <div id="userChip" class="chip">Cargando...</div>
-      <button id="logoutBtn" class="btn">Salir</button>
+    <h1>FelipeRevolution Panel</h1>
+    <div>
+      <span id="userDisplay"></span>
+      <button id="logoutBtn">Salir</button>
     </div>
   </header>
 
-  <main>
-    <!-- LEFT: Owner controls & User management -->
-    <aside class="panel" style="height:calc(100vh - 110px); overflow:auto;">
-      <h3>Cuenta</h3>
-      <div class="small">Información del usuario activo</div>
-      <div style="margin-top:8px">
-        <label>Usuario</label>
-        <div id="u_name" class="muted"></div>
-        <label>Rol</label>
-        <div id="u_role" class="muted"></div>
-        <label>Saldo</label>
-        <div id="u_saldo" style="font-weight:800; font-size:1.2rem; color:var(--neon-pink)"></div>
-      </div>
+  <div class="loading">Cargando...</div>
 
-      <hr style="margin:12px 0; border-color:rgba(255,255,255,0.02)">
+  <div class="panel-content">
+    <div class="section">
+      <h2>Cuenta</h2>
+      <p><b>Usuario:</b> <span id="userName"></span></p>
+      <p><b>Rol:</b> <span id="userRole"></span></p>
+      <p><b>Saldo:</b> <span id="userBalance"></span></p>
+    </div>
 
-      <div style="margin-bottom:10px">
-        <div class="tabs" id="leftTabs">
-          <div class="tab active" data-tab="products">Productos</div>
-          <div class="tab" data-tab="users">Usuarios</div>
-          <div class="tab" data-tab="licenses">Licencias</div>
-        </div>
+    <div class="section">
+      <h2>Productos disponibles</h2>
+      <div class="productos-container" id="productosList"></div>
+    </div>
 
-        <!-- PRODUCTS quick add -->
-        <div id="tab-products">
-          <h3 class="muted">Agregar producto</h3>
-          <label>Nombre</label>
-          <input id="p_name" placeholder="Ej: Diamantes 500">
-          <label>Precio</label>
-          <input id="p_price" type="number" placeholder="Precio en moneda interna">
-          <label>Stock</label>
-          <input id="p_stock" type="number" placeholder="Cantidad en stock">
-          <label>Imagen (ruta local dentro de /img/)</label>
-          <input id="p_image_local" placeholder="Ej: img/diamantes.png">
-          <label>O URL imagen (opcional)</label>
-          <input id="p_image_url" placeholder="https://... (opcional)">
-          <div style="margin-top:8px"><button id="addProductBtn" class="btn">Agregar producto</button></div>
-        </div>
-
-        <!-- USERS management -->
-        <div id="tab-users" style="display:none; margin-top:8px;">
-          <h3 class="muted">Gestionar usuarios</h3>
-          <label>Crear usuario</label>
-          <input id="nu_username" placeholder="Nombre de usuario">
-          <input id="nu_password" placeholder="Contraseña">
-          <select id="nu_role"><option value="cliente">cliente</option><option value="owner">owner</option></select>
-          <input id="nu_saldo" type="number" placeholder="Saldo inicial">
-          <div style="margin-top:8px"><button id="createUserBtn" class="btn">Crear usuario</button></div>
-
-          <hr style="margin:10px 0; border-color:rgba(255,255,255,0.02)">
-
-          <h4 class="muted">Usuarios existentes</h4>
-          <div id="usersTableWrap" style="max-height:260px; overflow:auto; margin-top:8px;"></div>
-        </div>
-
-        <!-- LICENSES management -->
-        <div id="tab-licenses" style="display:none; margin-top:8px;">
-          <h3 class="muted">Licencias</h3>
-          <div class="small">Sube licencias en lote (CSV) o agrégalas manualmente</div>
-          <label>Seleccionar producto (para vincular licencias)</label>
-          <select id="licenseProductSelect"></select>
-          <label>Subir CSV (productId,code,duration o una licencia por línea)</label>
-          <input id="licenseCsvFile" type="file" accept=".csv,.txt">
-          <div style="margin-top:6px"><button id="importLicBtn" class="btn">Importar CSV</button></div>
-          <hr style="margin:10px 0; border-color:rgba(255,255,255,0.02)">
-          <label>Agregar licencia manual</label>
-          <input id="manualLicense" placeholder="Código de licencia real">
-          <input id="manualDuration" placeholder="Duración (días) - opcional">
-          <div style="margin-top:6px"><button id="addLicenseBtn" class="btn">Agregar licencia</button></div>
-          <div style="margin-top:10px"><button id="exportLicBtn" class="small-btn">Exportar licencias (CSV)</button></div>
-          <div id="licensesList" style="margin-top:10px; max-height:200px; overflow:auto;"></div>
-        </div>
-
-      </div>
-    </aside>
-
-    <!-- CENTER: Products display -->
-    <section>
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px;">
-        <div style="flex:1">
-          <label>Buscar</label>
-          <input id="searchInput" placeholder="Buscar productos...">
-        </div>
-        <div style="width:180px">
-          <label>Filtro stock</label>
-          <select id="filterStock"><option value="all">Todos</option><option value="in">Con stock</option><option value="out">Agotados</option></select>
-        </div>
-      </div>
-
-      <div class="products-grid" id="productsGrid"></div>
-    </section>
-
-    <!-- RIGHT: Orders / Export -->
-    <aside class="panel" style="height:calc(100vh - 110px); overflow:auto;">
-      <h3>Pedidos</h3>
-      <div class="small">Pedidos recientes y pendientes</div>
-      <div class="orders" id="ordersList"></div>
-
-      <hr style="margin:12px 0; border-color:rgba(255,255,255,0.02)">
-
-      <h3>Export / Debug</h3>
-      <div style="display:flex; flex-direction:column; gap:8px;">
-        <button id="exportAllBtn" class="btn">Exportar todo (JSON)</button>
-        <button id="exportOrdersBtn" class="btn">Exportar pedidos (CSV)</button>
-        <button id="downloadDataBtn" class="small-btn">Descargar datos (JSON)</button>
-        <button id="clearDataBtn" class="small-btn" title="Borra todo (USERS, PRODUCTS, ORDERS, LICENSES)">Borrar datos (limpiar)</button>
-      </div>
-    </aside>
-  </main>
-
-  <!-- POPUP -->
-  <div class="popup-wrap" id="popupWrap">
-    <div class="popup" id="popup">
-      <h2 id="popupTitle">✅ Acción</h2>
-      <p id="popupMessage">Mensaje</p>
-      <div id="popupExtra" style="margin-top:10px"></div>
-      <div style="margin-top:12px"><button id="popupClose" class="btn">Cerrar</button></div>
+    <div class="section" id="ownerSection">
+      <h2>Panel del Owner</h2>
+      <p>Agregar producto nuevo:</p>
+      <input type="text" id="nombreProd" placeholder="Nombre del producto"><br><br>
+      <input type="number" id="precioProd" placeholder="Precio"><br><br>
+      <input type="number" id="stockProd" placeholder="Stock"><br><br>
+      <input type="text" id="imgProd" placeholder="Ruta de imagen (ej: img/diamantes.png)"><br><br>
+      <button id="addProductBtn">Agregar producto</button>
     </div>
   </div>
 
-<script>
-/* ===== Keys for localStorage ===== */
-const USERS_KEY = 'fr_users';
-const PRODUCTS_KEY = 'fr_products';
-const ORDERS_KEY = 'fr_orders';
-const LICENSES_KEY = 'fr_licenses';
+  <!-- Popup compra -->
+  <div class="popup" id="popupCompra">
+    <div class="popup-content">
+      <h3>✅ Compra Exitosa</h3>
+      <p id="mensajeCompra"></p>
+      <button onclick="cerrarPopup()">Cerrar</button>
+    </div>
+  </div>
 
-/* ===== Active user pulled from index.html login ===== */
-let activeUser = (() => {
-  try { return JSON.parse(localStorage.getItem('activeUser')); } catch(e) { return null; }
-})();
-if (!activeUser) {
-  alert('No hay sesión activa. Serás enviado al login.');
-  window.location.href = 'index.html';
-}
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('activeUser'));
 
-/* ===== Ensure default data exists ===== */
-function ensureDefaults(){
-  if (!localStorage.getItem(USERS_KEY)) {
-    const defaults = [
-      { username: "FelipeRevolution", password: "2013AF", role: "owner", saldo: 1000, purchases: [] },
-      { username: "VicazzOficial", password: "Vicazz", role: "cliente", saldo: 1, purchases: [] }
-    ];
-    localStorage.setItem(USERS_KEY, JSON.stringify(defaults));
-  }
-  if (!localStorage.getItem(PRODUCTS_KEY)) localStorage.setItem(PRODUCTS_KEY, JSON.stringify([]));
-  if (!localStorage.getItem(ORDERS_KEY)) localStorage.setItem(ORDERS_KEY, JSON.stringify([]));
-  if (!localStorage.getItem(LICENSES_KEY)) localStorage.setItem(LICENSES_KEY, JSON.stringify([]));
-}
-ensureDefaults();
-
-/* ===== Helpers ===== */
-const $ = id => document.getElementById(id);
-function getUsers(){ return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); }
-function getProducts(){ return JSON.parse(localStorage.getItem(PRODUCTS_KEY) || '[]'); }
-function getOrders(){ return JSON.parse(localStorage.getItem(ORDERS_KEY) || '[]'); }
-function getLicenses(){ return JSON.parse(localStorage.getItem(LICENSES_KEY) || '[]'); }
-function saveUsers(u){ localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
-function saveProducts(p){ localStorage.setItem(PRODUCTS_KEY, JSON.stringify(p)); }
-function saveOrders(o){ localStorage.setItem(ORDERS_KEY, JSON.stringify(o)); }
-function saveLicenses(l){ localStorage.setItem(LICENSES_KEY, JSON.stringify(l)); }
-function findUser(username){ return getUsers().find(x => x.username === username); }
-function updateUserObject(u){ const all = getUsers().map(x => x.username === u.username ? u : x); saveUsers(all); }
-
-/* ===== DOM refs ===== */
-const u_name = $('u_name'), u_role = $('u_role'), u_saldo = $('u_saldo'), userChip = $('userChip'), logoutBtn = $('logoutBtn');
-const leftTabs = document.getElementById('leftTabs');
-const addProductBtn = $('addProductBtn'), p_name = $('p_name'), p_price = $('p_price'), p_stock = $('p_stock'), p_image_local = $('p_image_local'), p_image_url = $('p_image_url');
-const productsGrid = $('productsGrid'), searchInput = $('searchInput'), filterStock = $('filterStock');
-const ordersList = $('ordersList');
-const createUserBtn = $('createUserBtn'), nu_username = $('nu_username'), nu_password = $('nu_password'), nu_role = $('nu_role'), nu_saldo = $('nu_saldo'), usersTableWrap = $('usersTableWrap');
-const licenseProductSelect = $('licenseProductSelect'), licenseCsvFile = $('licenseCsvFile'), importLicBtn = $('importLicBtn'), manualLicense = $('manualLicense'), manualDuration = $('manualDuration'), addLicenseBtn = $('addLicenseBtn'), licensesList = $('licensesList'), exportLicBtn = $('exportLicBtn');
-const exportAllBtn = $('exportAllBtn'), exportOrdersBtn = $('exportOrdersBtn'), downloadDataBtn = $('downloadDataBtn'), clearDataBtn = $('clearDataBtn');
-const popupWrap = $('popupWrap'), popup = $('popup'), popupTitle = $('popupTitle'), popupMessage = $('popupMessage'), popupExtra = $('popupExtra'), popupClose = $('popupClose');
-
-/* ===== Render header & account info ===== */
-function renderHeader(){
-  userChip.textContent = activeUser.username + ' · ' + activeUser.role;
-  u_name.textContent = activeUser.username;
-  u_role.textContent = activeUser.role;
-  u_saldo.textContent = '$' + (activeUser.saldo ?? 0);
-  // hide owner tabs if not owner
-  if (activeUser.role !== 'owner') {
-    document.querySelectorAll('.tab').forEach(t => t.style.display = 'none');
-  }
-}
-renderHeader();
-
-/* ===== Tabs handling ===== */
-leftTabs.addEventListener('click', (e) => {
-  const t = e.target.closest('.tab'); if (!t) return;
-  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-  t.classList.add('active');
-  const sel = t.dataset.tab;
-  $('tab-products').style.display = (sel==='products' ? 'block' : 'none');
-  $('tab-users').style.display = (sel==='users' ? 'block' : 'none');
-  $('tab-licenses').style.display = (sel==='licenses' ? 'block' : 'none');
-});
-
-/* ===== Product rendering ===== */
-function placeholder(){
-  return 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="#0b0b0b"/><text x="50%" y="50%" fill="#777" font-size="24" font-family="Arial" text-anchor="middle">Sin imagen</text></svg>');
-}
-
-function renderProducts(){
-  const q = (searchInput.value||'').toLowerCase();
-  const filter = filterStock.value;
-  const list = getProducts().filter(p => {
-    if (q && !p.name.toLowerCase().includes(q)) return false;
-    if (filter === 'in' && p.stock <= 0) return false;
-    if (filter === 'out' && p.stock > 0) return false;
-    return true;
-  });
-  productsGrid.innerHTML = '';
-  list.forEach(p => {
-    const card = document.createElement('div'); card.className='card';
-    const img = document.createElement('img'); img.src = p.image || placeholder();
-    const title = document.createElement('div'); title.style.fontWeight='800'; title.textContent = p.name;
-    const price = document.createElement('div'); price.className='muted'; price.textContent = 'Precio: $' + p.price;
-    const row = document.createElement('div'); row.className='row';
-    const stock = document.createElement('div'); stock.className='stock'; stock.textContent = 'Stock: ' + p.stock;
-    const buyBtn = document.createElement('button'); buyBtn.className='small-btn'; buyBtn.textContent = 'Comprar';
-    if (p.stock <= 0) { buyBtn.disabled = true; buyBtn.textContent = 'Agotado'; }
-    buyBtn.addEventListener('click', () => buyProduct(p.id));
-    row.appendChild(stock); row.appendChild(buyBtn);
-    card.appendChild(img); card.appendChild(title); card.appendChild(price); card.appendChild(row);
-
-    if (activeUser.role === 'owner') {
-      const actions = document.createElement('div'); actions.style.display='flex'; actions.style.gap='8px';
-      const edit = document.createElement('button'); edit.className='small-btn'; edit.textContent='Editar';
-      const del = document.createElement('button'); del.className='small-btn'; del.textContent='Eliminar';
-      edit.addEventListener('click', ()=> editProductPrompt(p.id));
-      del.addEventListener('click', ()=> { if(confirm('Eliminar producto?')) { deleteProduct(p.id); } });
-      actions.appendChild(edit); actions.appendChild(del);
-      card.appendChild(actions);
+    if (!user) {
+      window.location.href = 'index.html';
+      return;
     }
 
-    productsGrid.appendChild(card);
+    const userName = document.getElementById('userName');
+    const userRole = document.getElementById('userRole');
+    const userBalance = document.getElementById('userBalance');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const content = document.querySelector('.panel-content');
+    const loading = document.querySelector('.loading');
+    const productosList = document.getElementById('productosList');
+    const ownerSection = document.getElementById('ownerSection');
+
+    userName.textContent = user.username;
+    userRole.textContent = user.role;
+    userBalance.textContent = `$${user.saldo.toFixed(2)}`;
+
+    if (user.role === 'owner') {
+      ownerSection.style.display = 'block';
+    }
+
+    setTimeout(() => {
+      loading.style.display = 'none';
+      content.style.display = 'block';
+    }, 700);
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('activeUser');
+      window.location.href = 'index.html';
+    });
+
+    // Productos iniciales (ejemplo)
+    let productos = JSON.parse(localStorage.getItem('productos')) || [
+      { nombre: 'Diamantes FF', precio: 2.5, stock: 5, imagen: 'img/diamantes.png' },
+      { nombre: 'Licencia Premium', precio: 4, stock: 3, imagen: 'img/licencia.png' }
+    ];
+    localStorage.setItem('productos', JSON.stringify(productos));
+
+    function mostrarProductos() {
+      productosList.innerHTML = '';
+      productos.forEach((p, i) => {
+        const div = document.createElement('div');
+        div.className = 'producto';
+        div.innerHTML = `
+          <img src="${p.imagen}" alt="${p.nombre}">
+          <div class="producto-info">
+            <h3>${p.nombre}</h3>
+            <p>Precio: $${p.precio}</p>
+            <p>Stock: ${p.stock}</p>
+            <button class="btn-comprar" data-id="${i}">Comprar</button>
+          </div>
+        `;
+        productosList.appendChild(div);
+      });
+
+      document.querySelectorAll('.btn-comprar').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const id = e.target.dataset.id;
+          comprarProducto(id);
+        });
+      });
+    }
+
+    mostrarProductos();
+
+    // Función comprar
+    function comprarProducto(id) {
+      const p = productos[id];
+      if (p.stock <= 0) {
+        alert('Producto sin stock.');
+        return;
+      }
+      if (user.saldo < p.precio) {
+        alert('Saldo insuficiente.');
+        return;
+      }
+      p.stock -= 1;
+      user.saldo -= p.precio;
+      localStorage.setItem('activeUser', JSON.stringify(user));
+      localStorage.setItem('productos', JSON.stringify(productos));
+      userBalance.textContent = `$${user.saldo.toFixed(2)}`;
+      mostrarProductos();
+
+      const pedidoId = Math.floor(Math.random() * 90000 + 10000);
+      const popup = document.getElementById('popupCompra');
+      const msg = document.getElementById('mensajeCompra');
+      msg.innerHTML = `Número de pedido: <b>#${pedidoId}</b><br>Licencia generada: <b>(agregada manualmente)</b>`;
+      popup.style.display = 'flex';
+    }
+
+    window.cerrarPopup = function() {
+      document.getElementById('popupCompra').style.display = 'none';
+    }
+
+    // Agregar producto (owner)
+    const addBtn = document.getElementById('addProductBtn');
+    addBtn.addEventListener('click', () => {
+      const n = document.getElementById('nombreProd').value.trim();
+      const pr = parseFloat(document.getElementById('precioProd').value);
+      const st = parseInt(document.getElementById('stockProd').value);
+      const img = document.getElementById('imgProd').value.trim();
+
+      if (!n || isNaN(pr) || isNaN(st) || !img) {
+        alert('Completa todos los campos');
+        return;
+      }
+
+      productos.push({ nombre: n, precio: pr, stock: st, imagen: img });
+      localStorage.setItem('productos', JSON.stringify(productos));
+      mostrarProductos();
+
+      document.getElementById('nombreProd').value = '';
+      document.getElementById('precioProd').value = '';
+      document.getElementById('stockProd').value = '';
+      document.getElementById('imgProd').value = '';
+      alert('Producto agregado correctamente.');
+    });
   });
-}
-
-/* ===== Product CRUD ===== */
-addProductBtn.addEventListener('click', async () => {
-  const name = p_name.value.trim(), price = Number(p_price.value), stock = Number(p_stock.value);
-  if (!name || isNaN(price) || isNaN(stock)) return alert('Completa nombre, precio y stock.');
-  let img = '';
-  const localPath = p_image_local.value.trim();
-  const url = p_image_url.value.trim();
-  if (localPath) img = localPath;
-  else if (url) img = url;
-  else img = placeholder();
-  const id = 'P'+Date.now().toString().slice(-6)+Math.random().toString(36).slice(2,5).toUpperCase();
-  const prod = { id, name, price, stock, image: img };
-  const arr = getProducts(); arr.push(prod); saveProducts(arr);
-  p_name.value=''; p_price.value=''; p_stock.value=''; p_image_local.value=''; p_image_url.value='';
-  refreshAll();
-});
-
-function editProductPrompt(id){
-  const arr = getProducts(); const p = arr.find(x=>x.id===id); if(!p) return alert('No encontrado');
-  const newName = prompt('Nombre:', p.name) || p.name;
-  const newPrice = Number(prompt('Precio:', p.price) || p.price);
-  const newStock = Number(prompt('Stock:', p.stock) || p.stock);
-  p.name = newName; p.price = newPrice; p.stock = newStock;
-  saveProducts(arr); refreshAll();
-}
-function deleteProduct(id){
-  const arr = getProducts().filter(x=>x.id!==id); saveProducts(arr); refreshAll();
-}
-
-/* ===== Orders & Purchase flow ===== */
-function buyProduct(productId){
-  const products = getProducts(); const prod = products.find(p=>p.id===productId); if(!prod) return alert('Producto no encontrado');
-  if (prod.stock <= 0) return alert('Sin stock');
-  const users = getUsers(); const user = users.find(u=>u.username===activeUser.username);
-  if (!user) return alert('Usuario no encontrado');
-  if ((user.saldo||0) < prod.price) return alert('Saldo insuficiente');
-
-  // subtract balance + reduce stock
-  user.saldo = Number(user.saldo) - Number(prod.price);
-  prod.stock = Number(prod.stock) - 1;
-
-  // create order
-  const orderId = generateOrderId();
-  const order = { orderId, productId: prod.id, productName: prod.name, username: user.username, price: prod.price, status:'pending', license:null, duration:null, createdAt: Date.now() };
-  const orders = getOrders(); orders.push(order); saveOrders(orders);
-
-  // add to user's purchases
-  const updatedUsers = getUsers().map(u => { if(u.username===user.username){ u.purchases = u.purchases||[]; u.purchases.push(order); } return u; });
-  saveUsers(updatedUsers);
-
-  // save products and update activeUser
-  saveProduc
+  </script>
+</body>
+  </html>
